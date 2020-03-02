@@ -1,0 +1,22 @@
+{
+    "workbench.colorTheme": "Material Theme High Contrast",
+    "workbench.startupEditor": "newUntitledFile",
+    "latex-workshop.view.pdf.viewer": "tab",
+    "files.exclude": {
+        "**/*.aux": true,
+        "**/*.fdb_latexmk": true,
+        "**/*.synctex.gz": true
+    },
+    "editor.wordWrap": "on",
+    "editor.rulers": [
+        88
+    ],
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "editor.renderWhitespace": "boundary",
+    "explorer.confirmDelete": false,
+    "editor.minimap.showSlider": "always",
+    "python.formatting.provider": "black",
+    "workbench.sideBar.location": "left",
+    "diffEditor.ignoreTrimWhitespace": false
+}
