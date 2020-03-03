@@ -1,5 +1,6 @@
 {
     "workbench.colorTheme": "Material Theme High Contrast",
+    "workbench.iconTheme": "eq-material-theme-icons",
     "workbench.startupEditor": "newUntitledFile",
     "latex-workshop.view.pdf.viewer": "tab",
     "files.exclude": {
