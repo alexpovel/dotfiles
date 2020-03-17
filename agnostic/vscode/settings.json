@@ -7,6 +7,10 @@
         "**/*.fdb_latexmk": true,
         "**/*.synctex.gz": true
     },
+    "files.associations": {
+        ".latexmkrc": "perl",
+        "*.pdf_tex": "latex"
+    },
     "editor.wordWrap": "on",
     "editor.rulers": [
         88
@@ -18,5 +22,6 @@
     "editor.minimap.showSlider": "always",
     "python.formatting.provider": "black",
     "workbench.sideBar.location": "left",
-    "diffEditor.ignoreTrimWhitespace": false
+    "diffEditor.ignoreTrimWhitespace": false,
+    "python.jediEnabled": false
 }
