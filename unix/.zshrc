@@ -72,6 +72,7 @@ plugins=(
     git
     colorize
     command-not-found
+    kubectl
     rsync
     themes
     colored-man-pages
