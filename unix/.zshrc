@@ -83,8 +83,6 @@ plugins=(
 # colorize plugin style picker for pygmentize
 ZSH_COLORIZE_STYLE="solarized-dark"
 
-source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -110,10 +108,24 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
+
+# "user@machine" prompt is hidden if $USER==$DEFAULT_USER, see prompt_context
+DEFAULT_USER=alex
+
 prompt_context() {
-  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-# Comment out below line to hide user@host info if user is default user
-#    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
-  fi
+    if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+        #   prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+    fi
 }
+
+# Switching namespaces in kubernetes; "default" namespace is the... default
+cn() {
+    kubectl config set-context $(kubectl config current-context) --namespace=$1
+}
+
+# Add required by manually installing TeXLive via install-tl
+path+="/usr/local/texlive/2020/bin/x86_64-linux"
+manpath+="/usr/local/texlive/2020/texmf-dist/doc/man"
+infopath+="/usr/local/texlive/2020/texmf-dist/doc/info"
+
+source $ZSH/oh-my-zsh.sh
