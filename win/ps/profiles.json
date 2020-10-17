@@ -4,10 +4,13 @@
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
     "profiles": {
+        // See also:
+        // https://docs.microsoft.com/en-us/windows/terminal/customize-settings/profile-settings
         "defaults": {
             "colorScheme": "Material",
             "fontSize": 10,
-            "fontFace": "FiraCode NF"
+            "fontFace": "Fira Code",
+            "fontWeight": "medium"
         },
         "list": [
             {
