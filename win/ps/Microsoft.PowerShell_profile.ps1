@@ -1,29 +1,55 @@
+Import-Module posh-git
+Import-Module oh-my-posh
+Set-Theme Agnoster
+# For Agnoster theme, "user@host" will be hidden if user==DefaultUser
+$DefaultUser = "alex"
+
+
+##
+# Functions
+##
+
 # enable vim command
 function vim ($File){
     bash -c "vim $File"
 }
 
-# behaviour of Tab key autocomplete
+
+##
+# PSReadLine, see https://github.com/PowerShell/PSReadLine
+##
+
+## behaviour of Tab key autocomplete
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+## From docs:
+## With these bindings, up arrow/down arrow will work like PowerShell/cmd if the
+## current command line is blank. If you've entered some text though, it will
+## search the history for commands that start with the currently entered text.
+##
+## Like zsh completion.
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+
+
+##
+# Aliases
+##
 
 # get-command is PS-equivalent to Unix which
 New-Alias which get-command
-
 # ipython shortcut
-New-Alias py ipython
+New-Alias pi ipython
+
+
+##
+# Other
+##
 
 # git diff output uses less; it will be buggy without utf8
 $env:LESSCHARSET='UTF-8'
 
 # console output, e.g, when writing git diff output to file using pipe: | Out-File
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-
-Import-Module posh-git
-Import-Module oh-my-posh
-Set-Theme Agnoster
-
-# For Agnoster theme, "user@host" will be hidden if user==DefaultUser
-$DefaultUser = "alex"
 
 # Chocolatey profile
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
