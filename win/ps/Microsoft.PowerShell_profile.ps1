@@ -56,3 +56,13 @@ $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
+
+# https://stackoverflow.com/a/50758683/11477374
+function refresh-path {
+  $env:Path = (
+    [System.Environment]::GetEnvironmentVariable("Path","Machine"),
+    [System.Environment]::GetEnvironmentVariable("Path","User")
+  ) -join ";"
+  "Path is now:"
+  $env:Path
+}
