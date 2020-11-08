@@ -1,3 +1,10 @@
+# To keep syncing easy, set up a link to this file.
+# Open an admin CMD prompt and run:
+
+# mklink /H "C:\Users\alex\Documents\WindowsPowerShell\Microsoft.Powershell_profile.ps1" "C:\Path\To\This\File\Microsoft.PowerShell_profile.ps1"
+
+# Note that this is in the form <destination> <source>, the opposite of Unix ln.
+
 Import-Module posh-git
 Import-Module oh-my-posh
 Set-Theme Agnoster
@@ -39,7 +46,8 @@ Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 New-Alias which get-command
 # ipython shortcut
 New-Alias pi ipython
-
+#
+New-Alias g git
 
 ##
 # Other
