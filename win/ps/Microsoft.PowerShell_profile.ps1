@@ -66,7 +66,7 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
 # https://stackoverflow.com/a/50758683/11477374
-function refresh-path {
+function Update-Path {
   $env:Path = (
     [System.Environment]::GetEnvironmentVariable("Path","Machine"),
     [System.Environment]::GetEnvironmentVariable("Path","User")
