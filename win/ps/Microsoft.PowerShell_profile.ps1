@@ -1,9 +1,8 @@
 # To keep syncing easy, set up a link to this file.
-# Open an admin CMD prompt and run:
+# In PowerShell, while in the directory that contains your profile, e.g.
+# C:\Users\alex\Documents\WindowsPowershell, run:
 
-# mklink /H "C:\Users\alex\Documents\WindowsPowerShell\Microsoft.Powershell_profile.ps1" "C:\Path\To\This\File\Microsoft.PowerShell_profile.ps1"
-
-# Note that this is in the form <destination> <source>, the opposite of Unix ln.
+# New-Item -ItemType HardLink -Name "Microsoft.Powershell_profile.ps1" -Value "C:\Users\alex\Documents\dev\repos\other\dotfiles\win\ps\Microsoft.Powershell_profile.ps1"
 
 Import-Module posh-git
 Import-Module oh-my-posh
