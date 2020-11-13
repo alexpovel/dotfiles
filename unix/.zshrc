@@ -1,3 +1,7 @@
+# Put this file somewhere you like, then:
+# `ln --symbolic ~/path/to/this/file/.zshrc ~/.zshrc`
+# and restart your shell.
+
 # =====================================================================================
 # General
 # =====================================================================================
@@ -20,15 +24,15 @@ path_candidates=(
 for path_candidate in "${path_candidates[@]}"; do
     if [ -d ${path_candidate} ]; then
         path+=${path_candidate}
-        echo "Added ${path_candidate} to PATH"
     fi
 done
 
 
+# Add required by manually installing TeXLive via install-tl.
+# That setup also has an option to adjust the PATHs manually, better use that.
 THIS_YEAR=$(date +%Y)
 TEX_LIVE_DIR="/usr/local/texlive/${THIS_YEAR}/bin/x86_64-linux"
 if [ -d ${TEX_LIVE_DIR} ]; then
-    # Add required by manually installing TeXLive via install-tl
     path+=${TEX_LIVE_DIR}
     manpath+="/usr/local/texlive/${THIS_YEAR}/texmf-dist/doc/man"
     infopath+="/usr/local/texlive/${THIS_YEAR}/texmf-dist/doc/info"
@@ -42,10 +46,11 @@ fi
 # Pyenv is a Python virtual environments management tool
 PYENV_ROOT="${HOME}/.pyenv"
 
-if [ -d PYENV_ROOT ]; then
-    export PYENV_ROOT
+if [ -d ${PYENV_ROOT} ]; then
+    export PYENV_ROOT=${PYENV_ROOT}
     path+="${PYENV_ROOT}/bin"
     if command -v pyenv 1>/dev/null 2>&1; then
+        # Manipulates PATH during initialization:
         eval "$(pyenv init -)"
     fi
 fi
@@ -94,21 +99,17 @@ plugins=(
 # colorize plugin style picker for pygmentize.
 # See available styles with:
 # `python -c "from pygments.styles import STYLE_MAP; print(STYLE_MAP.keys())"`
-ZSH_COLORIZE_STYLE="solarized-dark"
-
-
-prompt_context() {
-    if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-        #   prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
-    fi
-}
+ZSH_COLORIZE_STYLE="monokai"
 
 # =====================================================================================
 # Custom aliases
 # =====================================================================================
 
+# Colorize by default. Slow as heck but possibly worth the wait:
 alias cat=ccat
 alias less=cless
+# Debian is still in 1998, `ipython` refers to Python 2:
+alias pi=ipython3
 
 # =====================================================================================
 # Apply
