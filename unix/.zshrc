@@ -107,9 +107,13 @@ ZSH_COLORIZE_STYLE="monokai"
 
 # Colorize by default. Slow as heck but possibly worth the wait:
 alias cat=ccat
-alias less=cless
-# Debian is still in 1998, `ipython` refers to Python 2:
-alias pi=ipython3
+
+# Debian has a distinction and still uses Python 2 for its main Python commands:
+if command -v ipython3 1>/dev/null 2>&1; then
+    alias pi=ipython3
+else
+    alias pi=ipython
+fi
 
 # =====================================================================================
 # Apply
