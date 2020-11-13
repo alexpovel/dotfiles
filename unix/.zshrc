@@ -1,20 +1,125 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# =====================================================================================
+# General
+# =====================================================================================
+
+# "user@machine" prompt is hidden if $USER==$DEFAULT_USER, see prompt_context
+DEFAULT_USER=alex
+
+# =====================================================================================
+# PATH
+# Adds to `path` array, see https://stackoverflow.com/a/30792333/11477374
+# =====================================================================================
+
+path_candidates=(
+    # Get e.g. Python tools installed via pip to work:
+    "${HOME}/.local/bin"
+    # Python dependency management tool:
+    "${HOME}/.poetry/bin"
+)
+
+for path_candidate in "${path_candidates[@]}"; do
+    if [ -d ${path_candidate} ]; then
+        path+=${path_candidate}
+        echo "Added ${path_candidate} to PATH"
+    fi
+done
+
+
+THIS_YEAR=$(date +%Y)
+TEX_LIVE_DIR="/usr/local/texlive/${THIS_YEAR}/bin/x86_64-linux"
+if [ -d ${TEX_LIVE_DIR} ]; then
+    # Add required by manually installing TeXLive via install-tl
+    path+=${TEX_LIVE_DIR}
+    manpath+="/usr/local/texlive/${THIS_YEAR}/texmf-dist/doc/man"
+    infopath+="/usr/local/texlive/${THIS_YEAR}/texmf-dist/doc/info"
+    echo "Added TeXLive to (MAN/INFO)-PATH"
+fi
+
+# =====================================================================================
+# Other environment variables
+# =====================================================================================
+
+# Pyenv is a Python virtual environments management tool
+PYENV_ROOT="${HOME}/.pyenv"
+
+if [ -d PYENV_ROOT ]; then
+    export PYENV_ROOT
+    path+="${PYENV_ROOT}/bin"
+    if command -v pyenv 1>/dev/null 2>&1; then
+        eval "$(pyenv init -)"
+    fi
+fi
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/alex/.oh-my-zsh"
+export ZSH="${HOME}/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# =====================================================================================
+# Theme
+# =====================================================================================
+
 ZSH_THEME="agnoster"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# =====================================================================================
+# Plugin
+# =====================================================================================
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+
+# Plugins also here: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/
+plugins=(
+    # Colorize `man`:
+    colored-man-pages
+    # Provide ccat and cless for syntax highlighting:
+    colorize
+    # If command not found, suggests what package to install:
+    command-not-found
+    # Autocompletion:
+    docker
+    # Autocompletion and aliases:
+    docker-compose
+    # Aliases up the bazzoo as well as nice graphic displays:
+    git
+    # Suggests (previous) commands while typing, see
+    # https://github.com/zsh-users/zsh-autosuggestions:
+    zsh-autosuggestions
+    # Syntax highlighting for the input prompt, see
+    # https://github.com/zsh-users/zsh-syntax-highlighting:
+    zsh-syntax-highlighting
+)
+
+# colorize plugin style picker for pygmentize.
+# See available styles with:
+# `python -c "from pygments.styles import STYLE_MAP; print(STYLE_MAP.keys())"`
+ZSH_COLORIZE_STYLE="solarized-dark"
+
+
+prompt_context() {
+    if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+        #   prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+    fi
+}
+
+# =====================================================================================
+# Custom aliases
+# =====================================================================================
+
+alias cat=ccat
+alias less=cless
+
+# =====================================================================================
+# Apply
+# =====================================================================================
+
+source ${ZSH}/oh-my-zsh.sh
+
+# =====================================================================================
+# Other
+# Left over from initial .zshrc template
+# =====================================================================================
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -62,70 +167,3 @@ ZSH_THEME="agnoster"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    colored-man-pages
-    colorize
-    command-not-found
-    git
-    kubectl
-    rsync
-    themes
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-)
-
-# colorize plugin style picker for pygmentize
-ZSH_COLORIZE_STYLE="solarized-dark"
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# "user@machine" prompt is hidden if $USER==$DEFAULT_USER, see prompt_context
-DEFAULT_USER=alex
-
-prompt_context() {
-    if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-        #   prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
-    fi
-}
-
-# Switching namespaces in kubernetes; "default" namespace is the... default
-cn() {
-    kubectl config set-context $(kubectl config current-context) --namespace=$1
-}
-
-# Add required by manually installing TeXLive via install-tl
-path+="/usr/local/texlive/2020/bin/x86_64-linux"
-manpath+="/usr/local/texlive/2020/texmf-dist/doc/man"
-infopath+="/usr/local/texlive/2020/texmf-dist/doc/info"
-
-source $ZSH/oh-my-zsh.sh
