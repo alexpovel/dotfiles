@@ -129,6 +129,16 @@ source ${ZSH}/oh-my-zsh.sh
 
 # =====================================================================================
 # Other
+# =====================================================================================
+
+# Works at least for Debian-based systems. If we aren't notified, we might never know
+# we're in need of a reboot.
+if [ -f /var/run/reboot-required ]; then
+  echo "Reboot required."
+fi
+
+# =====================================================================================
+# Other
 # Left over from initial .zshrc template
 # =====================================================================================
 
