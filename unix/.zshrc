@@ -134,7 +134,7 @@ source ${ZSH}/oh-my-zsh.sh
 # Works at least for Debian-based systems. If we aren't notified, we might never know
 # we're in need of a reboot.
 if [ -f /var/run/reboot-required ]; then
-  echo "Reboot required."
+  echo "\e[31mOutstanding reboot detected.\e[0m"
 fi
 
 # =====================================================================================
