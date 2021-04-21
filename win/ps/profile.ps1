@@ -6,10 +6,7 @@
 
 Import-Module posh-git
 Import-Module oh-my-posh
-Set-Theme Agnoster
-# For Agnoster theme, "user@host" will be hidden if user==DefaultUser
-$DefaultUser = "alex"
-
+Set-PoshPrompt -Theme agnoster
 
 ##
 # Functions
@@ -19,7 +16,6 @@ $DefaultUser = "alex"
 function vim ($File){
     bash -c "vim $File"
 }
-
 
 ##
 # PSReadLine, see https://github.com/PowerShell/PSReadLine
@@ -35,7 +31,6 @@ Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 ## Like zsh completion.
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
-
 
 ##
 # Aliases
