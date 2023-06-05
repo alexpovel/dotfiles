@@ -43,6 +43,8 @@ fi
 # https://github.com/bcicen/ctop
 alias ctop="docker run --rm -ti --name=ctop --volume /var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop"
 
+alias tf="terraform"
+
 # =====================================================================================
 # Path adjustments
 # =====================================================================================
@@ -79,4 +81,4 @@ fi
 
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-eval $(keychain --eval id_ed25519)
+eval "$(keychain --eval id_ed25519)"

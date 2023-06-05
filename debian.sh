@@ -74,6 +74,27 @@ fi
 
 sudo apt install tldr && tldr --update || (cd "$HOME/.local/share/tldr/tldr" && git pull)
 
+# Install Terraform; check with `https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli`
+# on whether this is still the correct approach, especially for the GPG key.
+sudo apt-get install --yes \
+    gnupg \
+    software-properties-common
+
+wget -O- https://apt.releases.hashicorp.com/gpg | \
+    gpg --dearmor | \
+    sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+
+echo "HashiCorp GPG key fingerprint:"
+gpg --no-default-keyring \
+    --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+    --fingerprint
+
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+    https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+    sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+sudo apt update && sudo apt install --yes terraform
+
 # Get latest versions of certain packages, e.g. `git` is too old on Debian 11 for ssh signing support (2.30 vs. 2.34 needed)
 codename="$(lsb_release -cs)"
 echo "deb http://deb.debian.org/debian $codename-backports main" | sudo tee "/etc/apt/sources.list.d/$codename-backports.list"
