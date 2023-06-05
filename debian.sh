@@ -104,6 +104,8 @@ sudo apt update && sudo apt install --yes \
 
 cp --recursive home/. ~/
 
+git config --global user.signingkey "$(cat ~/.ssh/id_ed25519.pub)"
+
 if [ "$SHELL" != "$(which zsh)" ]; then
     chsh -s "$(which zsh)"
 fi

@@ -22,7 +22,6 @@
 [user]
     email = git@alexpovel.de
     name = Alex Povel
-    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDZjl7jq8d/f2nc4GhgCeadyWsvdkXJT54Y7s8jWARNG ssh@alexpovel.de
 [commit]
     gpgsign = true
 [core]
