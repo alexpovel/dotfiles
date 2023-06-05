@@ -7,6 +7,9 @@ At worst, at least they're written documentation of what to install and/or do wh
 They're supposed to be idempotent: when changing a setting, just run them again to apply.
 Downside is speed, upside is safety and simplicity.
 
+Be warned: they make liberal use of `sudo`, global installations, and piping to `sh`, potentially also with root access.
+Not for the faint of heart.
+
 ## Usage
 
 Execute the script whose name corresponds to your distribution.

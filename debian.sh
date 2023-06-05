@@ -65,6 +65,17 @@ sudo apt install --yes \
     keychain \
     openssh-client
 
+# Install npm; Debian repo versions are too old
+curl -sL https://deb.nodesource.com/setup_19.x | sudo bash -
+
+sudo apt install nodejs
+
+# Install GitHub Copilot CLI
+sudo npm install --global @githubnext/github-copilot-cli
+
+
+[ ! -f "$HOME/.copilot-cli-access-token" ] && github-copilot-cli auth
+
 # If a key doesn't exist yet, generate a new ed25519 key pair
 if [ ! -f ~/.ssh/id_ed25519 ]; then
     echo "Generating new ed25519 key pair, specify a comment (email) and passphrase..."
