@@ -14,17 +14,13 @@ export ZSH=$HOME/.oh-my-zsh
 # Example format: plugins=(rails git textmate ruby lighthouse)
 
 plugins=(
-    # Colorize `man`:
+    azure
     colored-man-pages
-    # Autocompletion:
     docker
-    # Aliases etc.:
     git
-    # Suggests (previous) commands while typing, see
-    # https://github.com/zsh-users/zsh-autosuggestions:
+    ripgrep
+    terraform
     zsh-autosuggestions
-    # Syntax highlighting for the input prompt, see
-    # https://github.com/zsh-users/zsh-syntax-highlighting:
     zsh-syntax-highlighting
 )
 
@@ -42,8 +38,6 @@ fi
 
 # https://github.com/bcicen/ctop
 alias ctop="docker run --rm -ti --name=ctop --volume /var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop"
-
-alias tf="terraform"
 
 # =====================================================================================
 # Path adjustments
