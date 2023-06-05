@@ -15,11 +15,16 @@ install_and_configure_shell() {
 
     [ ! -d "$HOME/.oh-my-zsh" ] && (curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh)
 
-    local DEST=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    [ ! -d $DEST ] && git clone https://github.com/zsh-users/zsh-autosuggestions $DEST
+    declare -A plugins
+    plugins=(
+        ["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions.git"
+        ["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    )
 
-    local DEST=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    [ ! -d $DEST ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $DEST
+    for plugin in "${!plugins[@]}"; do
+        local DEST=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/$plugin
+        [ ! -d "$DEST" ] && git clone "${plugins[$plugin]}" "$DEST"
+    done
 
     cargo install starship
 
