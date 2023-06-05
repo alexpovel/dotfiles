@@ -104,4 +104,6 @@ sudo apt update && sudo apt install --yes \
 
 cp --recursive home/. ~/
 
-chsh -s "$(which zsh)"
+if [ "$SHELL" != "$(which zsh)" ]; then
+    chsh -s "$(which zsh)"
+fi
