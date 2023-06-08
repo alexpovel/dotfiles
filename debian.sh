@@ -120,6 +120,7 @@ install_cli_tools() {
         fzf \
         htop \
         jq \
+        lsof \
         ncdu \
         neofetch \
         tldr \
