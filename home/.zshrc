@@ -19,6 +19,7 @@ plugins=(
     docker
     git
     ripgrep
+    rust
     terraform
     zsh-autosuggestions
     zsh-syntax-highlighting
@@ -35,6 +36,8 @@ if command -v ipython3 1>/dev/null 2>&1; then
 else
     alias pi=ipython
 fi
+
+alias c=cargo
 
 # https://github.com/bcicen/ctop
 alias ctop="docker run --rm -ti --name=ctop --volume /var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop"
