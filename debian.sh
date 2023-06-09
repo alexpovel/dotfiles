@@ -111,9 +111,24 @@ install_cli_tools() {
     cargo install \
         fd-find \
         git-delta \
+        just \
         ripgrep \
         tokei \
         zoxide
+
+    # On my system, the below directory was already part of the `fpath` array of zsh,
+    # but didn't exist. Check if it's part of that array with: `echo $fpath | tr ' '
+    # '\n'`. If it is, create if not exist, then put the completion file there.
+    # Important: its name *must* start with an underscore, otherwise (like `just.zsh`)
+    # it won't work. See for example: https://stackoverflow.com/a/73148583/11477374
+    # https://github.com/casey/just/issues/618#issuecomment-601824467
+    # https://github.com/casey/just/issues/617 (yes this is very complicated for some
+    # reason) Note that `$ZSH_CUSTOM` and using regular files like `script.zsh` doesn't
+    # work for completions, as far as I can see (like done here:
+    # https://unix.stackexchange.com/a/587802/374985).
+    local ZSH_COMPLETIONS_DIR="$HOME/.oh-my-zsh/completions"
+    mkdir -p $ZSH_COMPLETIONS_DIR
+    just --completions zsh > "${ZSH_COMPLETIONS_DIR}/_just"
 
     sudo apt update && sudo apt install --yes \
         file \
