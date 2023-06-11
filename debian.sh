@@ -49,21 +49,6 @@ install_cli_tools() {
         print_large "GitHub Copilot CLI installed successfully."
     }
 
-    install_git() {
-        print_large "Installing git..."
-        # Get latest version, git is too old on Debian 11 for ssh signing support (2.30 vs. 2.34 needed)
-
-        local CODENAME
-        CODENAME="$(lsb_release -cs)"
-
-        echo "deb http://deb.debian.org/debian $CODENAME-backports main" | sudo tee "/etc/apt/sources.list.d/$CODENAME-backports.list"
-
-        sudo apt update && sudo apt install --yes \
-            "git/${CODENAME}-backports"
-
-        print_large "git installed successfully."
-    }
-
     install_terraform_cli() {
         print_large "Installing Terraform CLI..."
 
@@ -105,8 +90,6 @@ install_cli_tools() {
     }
 
     print_large "Installing CLI tools..."
-
-    install_git
 
     cargo install \
         fd-find \
@@ -248,9 +231,6 @@ install_language_toolchains() {
 
         if ! command -v npm &> /dev/null
         then
-            # Debian repo versions are too old
-            curl -sL https://deb.nodesource.com/setup_19.x | sudo bash -
-
             sudo apt update && sudo apt install nodejs
         fi
 
