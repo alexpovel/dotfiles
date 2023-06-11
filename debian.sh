@@ -215,6 +215,7 @@ install_language_toolchains() {
         then
             sudo apt update && sudo apt install --yes \
                 python3 \
+                python3-ipython \
                 python3-pip
         fi
 
