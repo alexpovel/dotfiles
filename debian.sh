@@ -92,12 +92,9 @@ install_cli_tools() {
     print_large "Installing CLI tools..."
 
     cargo install \
-        fd-find \
         git-delta \
         just \
-        ripgrep \
-        tokei \
-        zoxide
+        tokei
 
     # On my system, the below directory was already part of the `fpath` array of zsh,
     # but didn't exist. Check if it's part of that array with: `echo $fpath | tr ' '
@@ -114,6 +111,7 @@ install_cli_tools() {
     just --completions zsh > "${ZSH_COMPLETIONS_DIR}/_just"
 
     sudo apt update && sudo apt install --yes \
+        fd-find \
         file \
         fzf \
         htop \
@@ -121,8 +119,10 @@ install_cli_tools() {
         lsof \
         ncdu \
         neofetch \
+        ripgrep \
         tldr \
-        tree
+        tree \
+        zoxide
 
     # Can fail with `master` not found, their trunk is now `main`?
     tldr --update || (cd "$HOME/.local/share/tldr/tldr" && git pull)
