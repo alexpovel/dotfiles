@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+# Get directory of this script
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd )"
+
 print_large() {
     printf "\n\n\e[32m"
     printf "================================================================================\n"
@@ -154,7 +157,7 @@ install_ssh_tooling_and_configure_ssh() {
 }
 
 provision_config_files() {
-    cp --recursive home/. ~/
+    cp --recursive "${DIR}/home/." ~/
 
     # Overwrite:
     git config --global user.signingkey "$(cat ~/.ssh/id_ed25519.pub)"
