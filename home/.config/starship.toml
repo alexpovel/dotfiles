@@ -23,3 +23,9 @@ staged = '${count}s'
 stashed = '${count}S'
 untracked = '${count}u'
 up_to_date = '✓'
+
+[azure]
+disabled = false
+format = 'on [$symbol($subscription)]($style) '
+symbol = '󰠅 '
+style = 'blue bold'
