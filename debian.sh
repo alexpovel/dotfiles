@@ -130,6 +130,7 @@ install_cli_tools() {
     just --completions zsh > "${ZSH_COMPLETIONS_DIR}/_just"
 
     sudo apt update && sudo apt install --yes \
+        dnsutils \
         fd-find \
         file \
         fzf \
@@ -138,6 +139,7 @@ install_cli_tools() {
         lsof \
         ncdu \
         neofetch \
+        net-tools \
         ripgrep \
         tldr \
         tree \
