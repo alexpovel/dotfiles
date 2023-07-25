@@ -154,6 +154,8 @@ install_cli_tools() {
 
     install_terraform_cli
 
+    pipx install --include-deps ansible
+
     print_large "CLI tools installed successfully."
 }
 
@@ -237,7 +239,10 @@ install_language_toolchains() {
             sudo apt update && sudo apt install --yes \
                 python3 \
                 python3-ipython \
-                python3-pip
+                python3-pip \
+                pipx
+
+            pipx ensurepath
         fi
 
         if ! command -v poetry &> /dev/null
