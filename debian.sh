@@ -193,14 +193,19 @@ install_language_toolchains() {
             ca-certificates \
             cmake \
             curl \
+            etckeeper \
             git \
             git-extras \
             gnupg \
             lsb-release \
             pkg-config \
+            rsync \
             vim \
             wget \
+            wireguard \
             zsh || exit 1 # Use explicit exit code in case `set -e` misbehaves
+
+        sudo etckeeper init && sudo etckeeper commit "Executed installation script"
 
         print_large "General base and build packages installed."
     }
