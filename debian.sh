@@ -42,7 +42,7 @@ install_cli_tools() {
     install_github_copilot_cli() {
         print_large "Installing GitHub Copilot CLI..."
 
-        if ! command -v github-copilot-cli &> /dev/null
+        if ! command -v github-copilot-cli &> /dev/null || [ -n "$CI" ]
         then
             sudo npm install --global @githubnext/github-copilot-cli
         fi
@@ -55,7 +55,7 @@ install_cli_tools() {
     install_github_cli() {
         print_large "Installing GitHub CLI..."
 
-        if ! command -v gh &> /dev/null
+        if ! command -v gh &> /dev/null || [ -n "$CI" ]
         then
             # https://github.com/cli/cli/blob/bf7db84ca8b795a38ee47b5e54a8109a917a55bf/docs/install_linux.md#debian-ubuntu-linux-raspberry-pi-os-apt
             curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -75,7 +75,7 @@ install_cli_tools() {
         # `https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli`
         # on whether this is still the correct approach, especially for the GPG key.
 
-        if ! command -v terraform &> /dev/null
+        if ! command -v terraform &> /dev/null || [ -n "$CI" ]
         then
             sudo apt update && sudo apt-get install --yes \
                 gnupg \
@@ -166,8 +166,7 @@ install_ssh_tooling_and_configure_ssh() {
         keychain \
         openssh-client
 
-    # If a key doesn't exist yet, generate a new pair
-    if [ ! -f ~/.ssh/id_ed25519 ]; then
+    if [ ! -f ~/.ssh/id_ed25519 ] && [ -z "$CI" ]; then
         print_large "Generating new ed25519 key pair, specify a comment (email) and passphrase..."
         read -p "Email: " email
         ssh-keygen -t ed25519 -C "$email"
@@ -213,7 +212,7 @@ install_language_toolchains() {
     install_rust_toolchain() {
         print_large "Installing Rust toolchain..."
 
-        if ! command -v cargo &> /dev/null
+        if ! command -v cargo &> /dev/null || [ -n "$CI" ]
         then
             # Pipe to `sh`, yes much spooky
             curl https://sh.rustup.rs -sSf | sh -s -- -y || exit 1
@@ -228,7 +227,7 @@ install_language_toolchains() {
     install_go_toolchain() {
         print_large "Installing Go toolchain..."
 
-        if ! command -v go &> /dev/null
+        if ! command -v go &> /dev/null || [ -n "$CI" ]
         then
             curl -sSL https://golang.org/dl/go1.20.4.linux-amd64.tar.gz | sudo tar -C /usr/local -xzf -
         fi
@@ -239,7 +238,7 @@ install_language_toolchains() {
     install_python_toolchain() {
         print_large "Installing Python toolchain..."
 
-        if ! command -v python3 &> /dev/null
+        if ! command -v python3 &> /dev/null || [ -n "$CI" ]
         then
             sudo apt update && sudo apt install --yes \
                 python3 \
@@ -250,7 +249,7 @@ install_language_toolchains() {
             pipx ensurepath
         fi
 
-        if ! command -v poetry &> /dev/null
+        if ! command -v poetry &> /dev/null || [ -n "$CI" ]
         then
             curl -sSL https://install.python-poetry.org | python3 -
         fi
@@ -261,7 +260,7 @@ install_language_toolchains() {
     install_npm() {
         print_large "Installing npm..."
 
-        if ! command -v npm &> /dev/null
+        if ! command -v npm &> /dev/null || [ -n "$CI" ]
         then
             sudo apt update && sudo apt install nodejs
         fi
