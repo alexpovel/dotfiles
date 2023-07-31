@@ -31,7 +31,7 @@ install_and_configure_shell() {
 
     cargo install starship
 
-    if [ "$SHELL" != "$(which zsh)" ]; then
+    if [ "$SHELL" != "$(which zsh)" ] && [ -z "$CI" ]; then
         chsh -s "$(which zsh)"
     fi
 
