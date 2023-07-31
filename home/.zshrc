@@ -69,6 +69,16 @@ export OPENAI_API_KEY="$(cat ${HOME}/.open-ai.api-key)"
 source ${ZSH}/oh-my-zsh.sh
 
 # =====================================================================================
+# fzf tooling
+# =====================================================================================
+
+if command -v fzf 1>/dev/null 2>&1; then
+    # https://github.com/junegunn/fzf/issues/1866#issuecomment-585176100
+    source $(dpkg -L fzf | grep 'completion.*\.zsh')
+    source $(dpkg -L fzf | grep 'bindings.*\.zsh')
+fi
+
+# =====================================================================================
 # Other
 # =====================================================================================
 
