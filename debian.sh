@@ -111,6 +111,7 @@ install_cli_tools() {
     print_large "Installing CLI tools..."
 
     cargo install \
+        erdtree \
         git-delta \
         just \
         tokei
@@ -142,7 +143,6 @@ install_cli_tools() {
         net-tools \
         ripgrep \
         tldr \
-        tree \
         zoxide
 
     # Can fail with `master` not found, their trunk is now `main`?
@@ -205,7 +205,7 @@ install_language_toolchains() {
             wireguard \
             zsh || exit 1 # Use explicit exit code in case `set -e` misbehaves
 
-        sudo etckeeper init && sudo etckeeper commit "Executed installation script"
+        sudo etckeeper init && { sudo etckeeper commit "Executed installation script" || true; }
 
         print_large "General base and build packages installed."
     }

@@ -39,6 +39,8 @@ fi
 
 alias c=cargo
 
+alias tree="erd"
+
 # https://github.com/bcicen/ctop
 alias ctop="docker run --rm -ti --name=ctop --volume /var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop"
 
