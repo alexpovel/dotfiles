@@ -39,6 +39,9 @@ fi
 
 alias c=cargo
 
+erd() {
+    command erd --human "$@"
+}
 alias tree="erd"
 
 # https://github.com/bcicen/ctop
@@ -92,3 +95,4 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(keychain --eval id_ed25519)"
 eval "$(github-copilot-cli alias -- "$0")"
+eval "$(erd --completions zsh)"
