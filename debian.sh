@@ -48,7 +48,7 @@ install_cli_tools() {
     install_github_copilot_cli() {
         print_large "Installing GitHub Copilot CLI..."
 
-        if ! command -v github-copilot-cli &> /dev/null || [ -n "$CI" ]
+        if ! command -v github-copilot-cli &> /dev/null && [ -z "$CI" ]
         then
             sudo npm install --global @githubnext/github-copilot-cli
         fi
