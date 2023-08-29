@@ -64,11 +64,13 @@ install_cli_tools() {
         if ! command -v gh &> /dev/null || [ -n "$CI" ]
         then
             # https://github.com/cli/cli/blob/bf7db84ca8b795a38ee47b5e54a8109a917a55bf/docs/install_linux.md#debian-ubuntu-linux-raspberry-pi-os-apt
-            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+            | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
             && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-            && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-            && sudo apt update \
-            && sudo apt install gh -y
+            && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+            | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+            sudo apt update && sudo apt install --yes gh
         fi
 
         print_large "GitHub CLI installed successfully."
@@ -89,7 +91,7 @@ install_cli_tools() {
 
             wget -O- https://apt.releases.hashicorp.com/gpg | \
                 gpg --dearmor | \
-                sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+                sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
 
             echo "HashiCorp GPG key fingerprint:"
             gpg --no-default-keyring \
