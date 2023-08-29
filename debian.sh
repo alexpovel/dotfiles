@@ -48,7 +48,7 @@ install_cli_tools() {
     install_github_copilot_cli() {
         print_large "Installing GitHub Copilot CLI..."
 
-        if ! command -v github-copilot-cli &> /dev/null && [ -z "$CI" ]
+        if ! command -v github-copilot-cli &> /dev/null
         then
             sudo npm install --global @githubnext/github-copilot-cli
         fi
@@ -158,7 +158,7 @@ install_cli_tools() {
 
     install_azure_cli
 
-    install_github_copilot_cli
+    [ -z "$CI" ] && install_github_copilot_cli
 
     install_terraform_cli
 
