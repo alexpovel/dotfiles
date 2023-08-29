@@ -35,7 +35,7 @@ install_and_configure_shell() {
         [ ! -d "$DEST" ] && git clone "${plugins[$plugin]}" "$DEST"
     done
 
-    cargo install starship
+    cargo binstall starship
 
     if [ "$SHELL" != "$(which zsh)" ] && [ -z "$CI" ]; then
         chsh -s "$(which zsh)"
@@ -118,7 +118,7 @@ install_cli_tools() {
 
     print_large "Installing CLI tools..."
 
-    cargo install \
+    cargo binstall \
         erdtree \
         git-delta \
         just \
@@ -227,6 +227,12 @@ install_language_toolchains() {
 
             # Need to find `cargo` for later use
             source "$HOME/.cargo/env" || exit 1
+        fi
+
+        if ! command -v cargo-binstall &> /dev/null || [ -n "$CI" ]
+        then
+            # https://github.com/cargo-bins/cargo-binstall#installation
+            curl -sSLf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
         fi
 
         print_large "Rust toolchain installed successfully."
