@@ -7,6 +7,10 @@ set -o pipefail
 # Get directory of this script
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd )"
 
+# If undefined, define but leave empty so `[ -z "$CI" ]` (or `-n`) works. Isn't bash a
+# wonderful language?
+CI="${CI:-}"
+
 print_large() {
     printf "\n\n\e[32m"
     printf "================================================================================\n"
