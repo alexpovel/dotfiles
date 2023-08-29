@@ -35,7 +35,7 @@ install_and_configure_shell() {
         [ ! -d "$DEST" ] && git clone "${plugins[$plugin]}" "$DEST"
     done
 
-    cargo binstall starship
+    cargo binstall --no-confirm starship
 
     if [ "$SHELL" != "$(which zsh)" ] && [ -z "$CI" ]; then
         chsh -s "$(which zsh)"
@@ -118,7 +118,7 @@ install_cli_tools() {
 
     print_large "Installing CLI tools..."
 
-    cargo binstall \
+    cargo binstall --no-confirm \
         erdtree \
         git-delta \
         just \
