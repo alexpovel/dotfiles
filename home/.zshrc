@@ -31,17 +31,9 @@ export ZSH_COLORIZE_STYLE="dracula"
 # Custom functions
 # =====================================================================================
 
-# Switches to current git repository's root directory, if possible.
-function rr() {
-    dir="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-
-    if command -v z 1>/dev/null 2>&1; then
-        # Use zoxide if available
-        __zoxide_z "$dir"
-    else
-        cd "$dir"
-    fi
-}
+# Gets current git repository's root directory, if possible. Use as `z `rr``, for
+# example. Works with Tab completion.
+alias rr="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 
 # =====================================================================================
 # Custom aliases
