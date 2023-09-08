@@ -143,6 +143,7 @@ install_cli_tools() {
         fd-find \
         file \
         fzf \
+        gron \
         htop \
         jq \
         lsof \
