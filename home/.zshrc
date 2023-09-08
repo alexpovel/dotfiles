@@ -33,7 +33,7 @@ export ZSH_COLORIZE_STYLE="dracula"
 
 # Gets current git repository's root directory, if possible. Use as `z `rr``, for
 # example. Works with Tab completion.
-alias rr="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+alias rr='git rev-parse --show-toplevel 2>/dev/null || pwd'
 
 # =====================================================================================
 # Custom aliases
