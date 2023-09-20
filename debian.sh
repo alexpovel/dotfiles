@@ -139,6 +139,7 @@ install_cli_tools() {
     just --completions zsh > "${ZSH_COMPLETIONS_DIR}/_just"
 
     sudo apt update && sudo apt install --yes \
+        direnv \
         dnsutils \
         fd-find \
         file \
