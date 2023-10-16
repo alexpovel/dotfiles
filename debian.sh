@@ -151,7 +151,9 @@ install_cli_tools() {
         ncdu \
         neofetch \
         net-tools \
+        nethogs \
         ripgrep \
+        sysstat \
         tldr \
         zoxide
 
