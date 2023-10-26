@@ -145,6 +145,8 @@ install_cli_tools() {
         file \
         fzf \
         gron \
+        heaptrack \
+        heaptrack-gui \
         htop \
         jq \
         lsof \
