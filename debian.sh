@@ -119,6 +119,7 @@ install_cli_tools() {
     print_large "Installing CLI tools..."
 
     cargo binstall --no-confirm \
+        bottom \
         erdtree \
         git-delta \
         just \
