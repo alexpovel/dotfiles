@@ -35,6 +35,25 @@ export ZSH_COLORIZE_STYLE="dracula"
 # example. Works with Tab completion.
 alias rr='git rev-parse --show-toplevel 2>/dev/null || pwd'
 
+pullall() {
+    gh auth status 1>/dev/null 2>&1 || gh auth login
+
+    local USER="$1"
+
+    gh repo list "$USER" --limit 1000 | while read -r repo _; do
+        gh repo clone "$repo" "$repo" || (
+            cd "$repo"
+
+            for branch in 'main' 'master' 'dev' 'devel'; do
+                # Need to be on a branch to pull; first one found wins.
+                git switch "$branch" && break
+            done
+
+            git pull --all || echo "Failed to pull $repo"
+        )
+    done
+}
+
 # =====================================================================================
 # Custom aliases
 # =====================================================================================
