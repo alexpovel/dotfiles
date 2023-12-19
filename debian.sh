@@ -286,9 +286,20 @@ install_language_toolchains() {
             curl https://pyenv.run | bash
         fi
 
-        for version in '3.9' '3.10' '3.11' '3.12'; do
-            pyenv install --skip-existing "$version"
-        done
+        (
+            # These steps are optional; they just pre-install some versions to save time
+            # later on. The steps up to `eval` are copied from the docs and might break.
+            # They are present in `.zshrc` already but we don't have access to that
+            # here yet.
+
+            export PYENV_ROOT="$HOME/.pyenv"
+            [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+            eval "$(pyenv init -)"
+
+            for version in '3.9' '3.10' '3.11' '3.12'; do
+                pyenv install --skip-existing "$version"
+            done
+        )
 
         pipx install pdm
 
