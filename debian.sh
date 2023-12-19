@@ -275,6 +275,20 @@ install_language_toolchains() {
             curl -sSL https://install.python-poetry.org | python3 -
         fi
 
+        # https://github.com/pyenv/pyenv/issues/678
+        sudo apt update && sudo apt install libsqlite3-dev
+        if ! command -v pyenv &> /dev/null || [ -n "$CI" ]
+        then
+            # https://github.com/pyenv/pyenv/tree/96f93fd5531afa2fb5a826c92770293e500f9ab6#automatic-installer
+            curl https://pyenv.run | bash
+        fi
+
+        for version in '3.9' '3.10' '3.11' '3.12'; do
+            pyenv install --skip-existing "$version"
+        done
+
+        pipx install pdm
+
         print_large "Python toolchain installed successfully."
     }
 
