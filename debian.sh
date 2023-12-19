@@ -85,7 +85,7 @@ install_cli_tools() {
 
         if ! command -v terraform &> /dev/null || [ -n "$CI" ]
         then
-            sudo apt update && sudo apt-get install --yes \
+            sudo apt-get install --yes \
                 gnupg \
                 software-properties-common
 
@@ -139,7 +139,7 @@ install_cli_tools() {
     mkdir -p "$ZSH_COMPLETIONS_DIR"
     just --completions zsh > "${ZSH_COMPLETIONS_DIR}/_just"
 
-    sudo apt update && sudo apt install --yes \
+    sudo apt install --yes \
         direnv \
         dnsutils \
         fd-find \
@@ -177,7 +177,7 @@ install_cli_tools() {
 install_ssh_tooling_and_configure_ssh() {
     print_large "Installing SSH tooling and configuring SSH..."
 
-    sudo apt update && sudo apt install --yes \
+    sudo apt install --yes \
         keychain \
         openssh-client
 
@@ -201,7 +201,7 @@ install_language_toolchains() {
     install_base_build_packages() {
         print_large "Installing general base and build packages..."
 
-        sudo apt update && sudo apt install --yes \
+        sudo apt install --yes \
             apt-transport-https \
             build-essential \
             ca-certificates \
@@ -264,7 +264,7 @@ install_language_toolchains() {
 
         if ! command -v python3 &> /dev/null || [ -n "$CI" ]
         then
-            sudo apt update && sudo apt install --yes \
+            sudo apt install --yes \
                 python3 \
                 python3-ipython \
                 python3-pip \
@@ -279,7 +279,7 @@ install_language_toolchains() {
         fi
 
         # https://github.com/pyenv/pyenv/issues/678
-        sudo apt update && sudo apt install libsqlite3-dev
+        sudo apt install libsqlite3-dev
         if ! command -v pyenv &> /dev/null || [ -n "$CI" ]
         then
             # https://github.com/pyenv/pyenv/tree/96f93fd5531afa2fb5a826c92770293e500f9ab6#automatic-installer
@@ -300,7 +300,7 @@ install_language_toolchains() {
 
         if ! command -v npm &> /dev/null || [ -n "$CI" ]
         then
-            sudo apt update && sudo apt install nodejs
+            sudo apt install nodejs
         fi
 
         print_large "npm installed successfully."
@@ -316,6 +316,8 @@ install_language_toolchains() {
 
 main() {
     print_large "Provisioning system..."
+
+    sudo apt update # Single global update, not per step
 
     install_language_toolchains
     install_ssh_tooling_and_configure_ssh
