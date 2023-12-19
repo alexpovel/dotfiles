@@ -136,7 +136,7 @@ install_cli_tools() {
     # work for completions, as far as I can see (like done here:
     # https://unix.stackexchange.com/a/587802/374985).
     local ZSH_COMPLETIONS_DIR="$HOME/.oh-my-zsh/completions"
-    mkdir -p $ZSH_COMPLETIONS_DIR
+    mkdir -p "$ZSH_COMPLETIONS_DIR"
     just --completions zsh > "${ZSH_COMPLETIONS_DIR}/_just"
 
     sudo apt update && sudo apt install --yes \
