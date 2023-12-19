@@ -233,6 +233,9 @@ install_language_toolchains() {
             curl https://sh.rustup.rs -sSf | sh -s -- -y || exit 1
 
             # Need to find `cargo` for later use
+            #
+            # https://www.shellcheck.net/wiki/SC1091:
+            # shellcheck source=/dev/null
             source "$HOME/.cargo/env" || exit 1
         fi
 
