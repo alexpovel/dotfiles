@@ -183,7 +183,7 @@ install_ssh_tooling_and_configure_ssh() {
 
     if [ ! -f ~/.ssh/id_ed25519 ] && [ -z "$CI" ]; then
         print_large "Generating new ed25519 key pair, specify a comment (email) and passphrase..."
-        read -p "Email: " email
+        read -r -p "Email: " email
         ssh-keygen -t ed25519 -C "$email"
     fi
 
