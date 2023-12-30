@@ -140,6 +140,7 @@ install_cli_tools() {
     just --completions zsh > "${ZSH_COMPLETIONS_DIR}/_just"
 
     sudo apt install --yes \
+        bat \
         direnv \
         dnsutils \
         fd-find \

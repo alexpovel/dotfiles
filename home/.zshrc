@@ -28,6 +28,31 @@ plugins=(
 export ZSH_COLORIZE_STYLE="dracula"
 
 # =====================================================================================
+# Hooks
+# =====================================================================================
+
+function print_readme() {
+    local line_length=10
+
+    for readme in README.md README.rst README.txt README; do
+        if [[ -f "$readme" ]]; then
+            if command -v batcat >/dev/null 2>&1; then
+                batcat --line-range=:"$line_length" "$readme"
+            elif command -v bat >/dev/null 2>&1; then
+                bat --line-range=:"$line_length" "$readme"
+            else
+                head -n "$line_length" "$readme"
+            fi
+            break
+        fi
+    done
+}
+
+autoload -U add-zsh-hook
+# Print README on directory change
+add-zsh-hook chpwd print_readme
+
+# =====================================================================================
 # Custom functions
 # =====================================================================================
 
