@@ -145,6 +145,7 @@ install_cli_tools() {
         dnsutils \
         fd-find \
         file \
+        findutils \
         fzf \
         gron \
         heaptrack \
