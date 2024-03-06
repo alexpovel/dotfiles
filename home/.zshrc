@@ -60,6 +60,13 @@ add-zsh-hook chpwd print_readme
 # example. Works with Tab completion.
 alias rr='git rev-parse --show-toplevel 2>/dev/null || pwd'
 
+wf() {
+    # "`w`here `f`ile": which files contain the given regex?
+    local editor=${EDITOR:-vim}
+    # `--open-tty` for https://unix.stackexchange.com/a/732101
+    rg --files-with-matches "$1" | fzf | xargs --no-run-if-empty --open-tty "$editor"
+}
+
 pullall() {
     gh auth status 1>/dev/null 2>&1 || gh auth login
 
