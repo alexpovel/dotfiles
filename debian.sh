@@ -123,6 +123,7 @@ install_cli_tools() {
         erdtree \
         git-delta \
         just \
+        srgn \
         tokei
 
     # On my system, the below directory was already part of the `fpath` array of zsh,
