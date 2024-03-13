@@ -62,9 +62,10 @@ alias rr='git rev-parse --show-toplevel 2>/dev/null || pwd'
 
 wf() {
     # "`w`here `f`ile": which files contain the given regex?
-    local editor=${EDITOR:-vim}
-    # `--open-tty` for https://unix.stackexchange.com/a/732101
-    rg --files-with-matches "$1" | fzf | xargs --no-run-if-empty --open-tty "$editor"
+    #
+    # Can be used as `vim $(wf -i 'foo')` to open a file containing 'foo'
+    # (case-insensitive).
+    rg --files-with-matches "$@" | fzf
 }
 
 pullall() {
