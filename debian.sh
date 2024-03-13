@@ -300,7 +300,8 @@ install_language_toolchains() {
             eval "$(pyenv init -)"
 
             for version in '3.9' '3.10' '3.11' '3.12'; do
-                pyenv install --skip-existing "$version"
+                # Not critical and has failed me before, so allow that.
+                pyenv install --skip-existing "$version" || echo "Failed to install $version"
             done
         )
 
