@@ -320,7 +320,7 @@ install_language_toolchains() {
 
         # Installing via https://github.com/nodesource/distributions ships with `npx`,
         # but installing from native Debian repos doesn't.
-        npm list --global npx || sudo npm install --global npx
+        npm list --global npx || command -v npx || sudo npm install --global npx
 
         print_large "npm installed successfully."
     }
