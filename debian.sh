@@ -310,19 +310,24 @@ install_language_toolchains() {
         print_large "Python toolchain installed successfully."
     }
 
-    install_npm() {
-        print_large "Installing npm..."
+    install_nvm() {
+        print_large "Installing nvm..."
 
-        if ! command -v npm &> /dev/null || [ -n "$CI" ]
+        if ! command -v nvm &> /dev/null || [ -n "$CI" ]
         then
-            sudo apt install nodejs
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
         fi
 
-        # Installing via https://github.com/nodesource/distributions ships with `npx`,
-        # but installing from native Debian repos doesn't.
-        npm list --global npx || command -v npx || sudo npm install --global npx
+        # https://github.com/nvm-sh/nvm/tree/v0.39.7?tab=readme-ov-file#install--update-script
+        NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+        export NVM_DIR
+        # shellcheck source=/dev/null
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-        print_large "npm installed successfully."
+        nvm install node  # Latest
+        nvm install --lts  # Latest LTS
+
+        print_large "nvm installed successfully."
     }
 
     install_base_build_packages
@@ -330,7 +335,7 @@ install_language_toolchains() {
     install_rust_toolchain
     install_go_toolchain
     install_python_toolchain
-    install_npm
+    install_nvm
 }
 
 main() {
