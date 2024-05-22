@@ -1,0 +1,76 @@
+{
+  "$schema": "https://schema.linearmouse.app/0.9.5",
+  "schemes": [
+    {
+      "if": {
+        "device": {
+          "vendorID": "0x46d",
+          "productName": "G203 LIGHTSYNC Gaming Mouse",
+          "category": "mouse",
+          "productID": "0xc092"
+        }
+      },
+      "pointer": {
+        "acceleration": 1.05,
+        "disableAcceleration": true
+      },
+      "buttons": {
+        "mappings": [
+          {
+            "option": false,
+            "button": 3,
+            "command": false,
+            "control": false,
+            "shift": false,
+            "action": {
+              "keyPress": [
+                "command",
+                "w"
+              ]
+            }
+          },
+          {
+            "shift": false,
+            "option": false,
+            "action": "mouse.button.back",
+            "command": false,
+            "control": false,
+            "button": 4
+          },
+          {
+            "command": true,
+            "control": false,
+            "shift": false,
+            "button": 4,
+            "option": false,
+            "action": {
+              "run": "\/bin\/zsh -c \"export LANG=en_US.UTF-8; pbpaste | srgn --german | pbcopy\" # LinearMouse hard-forces this through /bin/bash, where Nix isn't set up, so launch zsh right after, where it is, so PATH works without having to hard-code anything. It appears LANG isn't set properly either, which causes pb{copy,paste} to misbehave in terms of Unicode normalization"
+            }
+          }
+        ],
+        "universalBackForward": true
+      },
+      "scrolling": {
+        "speed": {
+          "vertical": 0
+        },
+        "distance": {
+          "vertical": 6
+        },
+        "modifiers": {
+          "vertical": {
+            "command": {
+              "type": "zoom"
+            }
+          }
+        },
+        "reverse": {
+          "vertical": true
+        },
+        "acceleration": {
+          "vertical": 1
+        }
+      }
+    }
+  ]
+}
