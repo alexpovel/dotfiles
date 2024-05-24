@@ -76,6 +76,7 @@ in
       bat
       bottom
       cargo
+      clippy
       cmake
       curl
       dig
@@ -118,6 +119,7 @@ in
       rclone
       rsync
       rustc
+      rustfmt
       shellcheck
       sqlite
       (pkgs.rustPlatform.buildRustPackage
