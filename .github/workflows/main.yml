@@ -1,0 +1,31 @@
+# Integration tests for dotfiles! Has DevOps gone too far?
+
+name: "Run setup scripts"
+
+on:
+  push:
+
+jobs:
+  run:
+    name: Run setup scripts
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # - name: Install Nix
+      #   run: sh <(curl -L https://nixos.org/nix/install)
+
+      - uses: cachix/install-nix-action@v27
+      - name: Clean
+        run: rm /etc/nix/nix.conf
+
+      # - name: Install `nix-darwin`
+      #   run: |
+      #     nix --extra-experimental-features 'nix-command flakes' flake init -t nix-darwin
+
+      - name: Setup `nix-darwin`
+        run: nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake .#hostname
+
+      - name: Rebuild system
+        run: darwin-rebuild switch --flake .#hostname
