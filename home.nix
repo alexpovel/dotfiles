@@ -75,8 +75,6 @@ in
       ansible
       bat
       bottom
-      cargo
-      clippy
       cmake
       curl
       dig
@@ -118,8 +116,7 @@ in
       ]))
       rclone
       rsync
-      rustc
-      rustfmt
+      rustup
       shellcheck
       sqlite
       (pkgs.rustPlatform.buildRustPackage
@@ -415,6 +412,12 @@ in
         # Do this dynamically to keep completions in sync. We're rocking Docker Desktop,
         # which isn't natively installable via Nix (which usually takes care of completions).
         docker completion zsh > ${zshCustomCompletions}/_docker # Not the cheapest call; ~20ms on warm cache
+
+        for cmd in 'rustup' 'cargo'; do
+          # `cargo` completions were actually already set up, but `rustup` weren't.
+          # Just do both for consistency.
+          rustup completions zsh "$cmd" > "${zshCustomCompletions}/_$cmd";
+        done
 
         # More completions go here, in the form of `_some-command`...
         # Note: Nix will install most completions natively already.
