@@ -100,6 +100,7 @@ in
       ncdu
       neofetch
       nil
+      nix-direnv
       nixpkgs-fmt
       nmap
       nodejs
@@ -182,15 +183,27 @@ in
           bindings = [
             {
               # https://github.com/alacritty/alacritty/issues/474#issuecomment-338803299
+              key = "Left";
+              mods = "Alt";
+              chars = "\\u001bb";
+            }
+            {
+              # https://github.com/alacritty/alacritty/issues/474#issuecomment-338803299
               key = "Right";
               mods = "Alt";
-              chars = "\\u001BF";
+              chars = "\\u001bf";
             }
             {
               # https://github.com/alacritty/alacritty/issues/474#issuecomment-338803299
               key = "Left";
-              mods = "Alt";
-              chars = "\\u001BB";
+              mods = "Command";
+              chars = "\\u001bOH";
+            }
+            {
+              # https://github.com/alacritty/alacritty/issues/474#issuecomment-338803299
+              key = "Right";
+              mods = "Command";
+              chars = "\\u001bOF";
             }
           ];
         };
@@ -457,8 +470,14 @@ in
         }
 
         # https://unix.stackexchange.com/a/100860
-        bindkey "^[[A" history-beginning-search-backward
-        bindkey "^[[B" history-beginning-search-forward
+        bindkey '^[[A' history-beginning-search-backward
+        bindkey '^[[B' history-beginning-search-forward
+
+        # `HOME` happens to send '^[[1~' and `END` '^[[4~' on my machine (no idea), see also
+        # https://github.com/search?type=code&q=%27%5E%5B%5B1%7E%27 .
+        # Found out via `command cat -v` and pressing the keys.
+        bindkey '^[[1~' beginning-of-line
+        bindkey '^[[4~' end-of-line
 
         # https://thevaluable.dev/zsh-completion-guide-examples/
         zstyle ':completion:*' menu select
