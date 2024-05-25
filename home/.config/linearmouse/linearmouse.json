@@ -11,7 +11,7 @@
         }
       },
       "pointer": {
-        "acceleration": 1.05,
+        "acceleration": 1.00,
         "disableAcceleration": true
       },
       "buttons": {
@@ -55,7 +55,7 @@
           "vertical": 0
         },
         "distance": {
-          "vertical": 6
+          "vertical": 4
         },
         "modifiers": {
           "vertical": {
