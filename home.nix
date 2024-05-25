@@ -99,6 +99,7 @@ in
       luajit
       ncdu
       neofetch
+      nil
       nixpkgs-fmt
       nmap
       nodejs
