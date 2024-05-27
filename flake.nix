@@ -29,6 +29,7 @@
             ./darwin-configuration.nix
             home-manager.darwinModules.home-manager
             {
+              home-manager.backupFileExtension = "home-manager-backup";
               home-manager.useGlobalPkgs = true;
 
               # https://discourse.nixos.org/t/how-to-explicity-pass-arguments-config-and-pkgs-to-home-managers-nixos-module/16607/2
