@@ -75,6 +75,7 @@ in
       ansible
       bat
       bottom
+      capnproto
       cmake
       curl
       dig
@@ -95,6 +96,7 @@ in
       jq
       just
       kubectl
+      kubelogin-oidc
       kubernetes-helm
       luajit
       ncdu
@@ -105,6 +107,7 @@ in
       nmap
       nodejs
       pandoc
+      parallel
       perl
       pipx
       poetry
