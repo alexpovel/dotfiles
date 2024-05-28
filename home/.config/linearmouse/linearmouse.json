@@ -11,7 +11,7 @@
         }
       },
       "pointer": {
-        "acceleration": 1.00,
+        "acceleration": 0.8,
         "disableAcceleration": true
       },
       "buttons": {
