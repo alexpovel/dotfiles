@@ -124,6 +124,7 @@ in
       pipx
       poetry
       postgresql
+      pre-commit
       protobuf
       (python3.withPackages (p: with p; [
         httpx
