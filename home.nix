@@ -90,6 +90,7 @@ in
       eza
       fastgron
       ffmpeg
+      gcc
       gh
       gnumake
       golangci-lint
