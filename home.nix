@@ -71,7 +71,14 @@ in
       };
     };
 
-    packages = with pkgs; [
+    packages = with pkgs;
+    let
+      luazstd = import ./packages/lua-zstd.nix {
+        inherit (pkgs) fetchFromGitHub fetchurl zstd;
+        inherit (pkgs.luajitPackages) buildLuarocksPackage luaOlder;
+      };
+    in
+    [
       ansible
       bat
       bottom
@@ -98,7 +105,12 @@ in
       kubectl
       kubelogin-oidc
       kubernetes-helm
-      luajit
+      (luajit.withPackages (p: with p; [
+        luacheck
+        luaunit
+        luarocks
+        luazstd
+      ]))
       ncdu
       neofetch
       nil
@@ -149,6 +161,7 @@ in
       wget
       whois
       yq-go
+      zstd
     ];
   };
 
