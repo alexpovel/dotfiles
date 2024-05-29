@@ -286,6 +286,7 @@ in
         rb = "rebase";
         rbi = "rebase --interactive";
         s = "status --short --branch";
+        subfull = "submodule update --init --recursive";
         sw = "switch";
         swd = "sw --detach";
 
