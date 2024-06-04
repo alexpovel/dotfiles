@@ -92,6 +92,7 @@ in
       ffmpeg
       gh
       gnumake
+      gnuplot
       golangci-lint
       graphviz
       hexyl
