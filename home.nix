@@ -496,6 +496,8 @@ in
         bindkey '^[[A' history-beginning-search-backward
         bindkey '^[[B' history-beginning-search-forward
 
+        setopt interactive_comments # Allow comments in interactive shell, to tag them for later search
+
         # `HOME` happens to send '^[[1~' and `END` '^[[4~' on my machine (no idea), see also
         # https://github.com/search?type=code&q=%27%5E%5B%5B1%7E%27 .
         # Found out via `command cat -v` and pressing the keys.
