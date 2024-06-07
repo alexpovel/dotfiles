@@ -410,6 +410,13 @@ in
       baseIndex = 1; # Default of 0 is inconvenient
       historyLimit = terminalScrollback;
       mouse = true; # For scrolling easily
+
+      extraConfig = ''
+        # https://stackoverflow.com/a/45010147/11477374
+        set-option -g status-interval 2
+        set-option -g automatic-rename on
+        set-option -g automatic-rename-format '#{b:pane_current_path}'
+      '';
     };
 
     vim = {
