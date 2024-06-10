@@ -84,6 +84,7 @@ in
       bottom
       capnproto
       cmake
+      coreutils-prefixed
       curl
       dig
       erdtree
@@ -415,7 +416,7 @@ in
         # https://stackoverflow.com/a/45010147/11477374
         set-option -g status-interval 2
         set-option -g automatic-rename on
-        set-option -g automatic-rename-format '#{b:pane_current_path}'
+        set-option -g automatic-rename-format "#{?#{==:#{pane_current_command},zsh},#{b:pane_current_path},#{pane_current_command}}"
       '';
     };
 
