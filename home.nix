@@ -275,6 +275,7 @@ in
         c = "commit";
         ca = "commit --all";
         cano = "commit --amend --no-edit";
+        cl = "!f() { git clone \"$1\" $(echo \"$1\" | rg --only-matching --replace '$OWNER$REPO' '(?<OWNER>\\w+/)?(?<REPO>\\w+)(?:\.git)?$'); }; f";  # Sort into owner/repo format; tests: https://regex101.com/r/j9Gn8S/1
         cli = "clean --interactive";
         d = "diff";
         dog = "log --decorate --oneline --graph";
