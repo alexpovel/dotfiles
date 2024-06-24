@@ -293,10 +293,10 @@ in
         sw = "switch";
         swd = "sw --detach";
 
-        # 'What does force-pushing the current branch to $1 (overwriting it) change to
-        # the PR of $1 against main?'; similar to
-        # https://stackoverflow.com/a/52512813/11477374
-        check-if-force-pushing-ruins-my-life = "!f() { git range-diff main HEAD $1; }; f";
+        # 'What does force-pushing the current branch to its upstream (overwriting it)
+        # change to the PR of that upstream against main?'; similar to
+        # https://stackoverflow.com/a/52512813/11477374 . `@{u}`: upstream branch.
+        check-if-force-pushing-ruins-my-life = "!f() { git range-diff main HEAD $(git rev-parse @{u}); }; f";
       };
 
       delta = {
