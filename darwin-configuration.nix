@@ -49,6 +49,16 @@
   homebrew = {
     enable = true;
 
+    onActivation = {
+      cleanup = "zap";
+    };
+
+    taps = [
+      # Gives `Error: Refusing to untap homebrew/cask because it contains the following
+      # installed formulae or casks: ...` with `cleanup = "zap"` if this isn't present.
+      "homebrew/cask"
+    ];
+
     casks = [
       "calibre"
       "discord"
