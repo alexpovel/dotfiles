@@ -403,7 +403,20 @@ in
           untracked = "\${count}u";
           up_to_date = "✓";
         };
+
+        custom = {
+          sshagent = {
+            # Convenience function to not be surprised by untimely password prompts.
+            command = ''
+              [[ $(ssh-add -L) =~ "no identities" ]] && echo '! 🔐 ssh agent vacant'
+            '';
+            when = true;
+            style = "bold yellow";
+            description = "Indicates whether any identites are represented by the ssh agent";
+          };
+        };
       };
+
     };
 
     tmux = {
