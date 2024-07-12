@@ -155,6 +155,7 @@ in
           cargoHash = "sha256-NSP/AwghyLfaZjQ/tUv8pSbxgD6Kf12In9UdXnRLE0I="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
         }
       )
+      squawk
       terraform
       tldr
       tokei
