@@ -83,6 +83,7 @@ in
       bat
       bottom
       capnproto
+      cargo-insta
       cmake
       coreutils-prefixed
       curl
