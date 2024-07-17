@@ -72,103 +72,103 @@ in
     };
 
     packages = with pkgs;
-    let
-      luazstd = import ./packages/lua-zstd.nix {
-        inherit (pkgs) fetchFromGitHub fetchurl zstd;
-        inherit (pkgs.luajitPackages) buildLuarocksPackage luaOlder;
-      };
-    in
-    [
-      ansible
-      bat
-      bottom
-      capnproto
-      cargo-insta
-      cmake
-      coreutils-prefixed
-      curl
-      dig
-      erdtree
-      eza
-      fastgron
-      ffmpeg
-      gh
-      gnumake
-      gnuplot
-      go-mockery
-      golangci-lint
-      graphviz
-      hexyl
-      htop
-      hyperfine
-      imagemagick
-      inetutils # telnet, ping, traceroute, whois
-      inkscape
-      jq
-      just
-      kubectl
-      kubelogin-oidc
-      kubernetes-helm
-      (luajit.withPackages (p: with p; [
-        luacheck
-        luaunit
-        luarocks
-        luazstd
-      ]))
-      ncdu
-      neofetch
-      nil
-      nix-direnv
-      nixpkgs-fmt
-      nmap
-      nodejs
-      pandoc
-      parallel
-      perl
-      pipx
-      poetry
-      postgresql
-      pre-commit
-      protobuf
-      (python3.withPackages (p: with p; [
-        httpx
-        httpx-auth
-        ipython
-        pandas
-      ]))
-      rclone
-      rsync
-      rustup
-      shellcheck
-      sqlite
-      (pkgs.rustPlatform.buildRustPackage
-        rec {
-          # See also https://github.com/NixOS/nixpkgs/pull/293076, adjusted here
-          pname = "srgn";
-          version = "srgn-v0.12.0";
+      let
+        luazstd = import ./packages/lua-zstd.nix {
+          inherit (pkgs) fetchFromGitHub fetchurl zstd;
+          inherit (pkgs.luajitPackages) buildLuarocksPackage luaOlder;
+        };
+      in
+      [
+        ansible
+        bat
+        bottom
+        capnproto
+        cargo-insta
+        cmake
+        coreutils-prefixed
+        curl
+        dig
+        erdtree
+        eza
+        fastgron
+        ffmpeg
+        gh
+        gnumake
+        gnuplot
+        go-mockery
+        golangci-lint
+        graphviz
+        hexyl
+        htop
+        hyperfine
+        imagemagick
+        inetutils # telnet, ping, traceroute, whois
+        inkscape
+        jq
+        just
+        kubectl
+        kubelogin-oidc
+        kubernetes-helm
+        (luajit.withPackages (p: with p; [
+          luacheck
+          luaunit
+          luarocks
+          luazstd
+        ]))
+        ncdu
+        neofetch
+        nil
+        nix-direnv
+        nixpkgs-fmt
+        nmap
+        nodejs
+        pandoc
+        parallel
+        perl
+        pipx
+        poetry
+        postgresql
+        pre-commit
+        protobuf
+        (python3.withPackages (p: with p; [
+          httpx
+          httpx-auth
+          ipython
+          pandas
+        ]))
+        rclone
+        rsync
+        rustup
+        shellcheck
+        sqlite
+        (pkgs.rustPlatform.buildRustPackage
+          rec {
+            # See also https://github.com/NixOS/nixpkgs/pull/293076, adjusted here
+            pname = "srgn";
+            version = "srgn-v0.12.0";
 
-          src = pkgs.fetchFromGitHub {
-            owner = "alexpovel";
-            repo = pname;
-            rev = version;
-            hash = "sha256-d53aSo1gzINC8WdMzjCHzU/8+9kvrrGglV4WsiCt+rM="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
-          };
+            src = pkgs.fetchFromGitHub {
+              owner = "alexpovel";
+              repo = pname;
+              rev = version;
+              hash = "sha256-d53aSo1gzINC8WdMzjCHzU/8+9kvrrGglV4WsiCt+rM="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
+            };
 
-          cargoHash = "sha256-NSP/AwghyLfaZjQ/tUv8pSbxgD6Kf12In9UdXnRLE0I="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
-        }
-      )
-      squawk
-      terraform
-      tldr
-      tokei
-      typescript
-      typst
-      vault
-      wget
-      whois
-      yq-go
-      zstd
-    ];
+            cargoHash = "sha256-NSP/AwghyLfaZjQ/tUv8pSbxgD6Kf12In9UdXnRLE0I="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
+          }
+        )
+        squawk
+        terraform
+        tldr
+        tokei
+        typescript
+        typst
+        vault
+        wget
+        whois
+        yq-go
+        zstd
+      ];
   };
 
   programs = {
@@ -278,7 +278,7 @@ in
         c = "commit";
         ca = "commit --all";
         cano = "commit --amend --no-edit";
-        cl = "!f() { git clone \"$1\" $(echo \"$1\" | rg --only-matching --replace '$OWNER$REPO' '(?<OWNER>[\\w-]+/)?(?<REPO>[\\w-]+)(?:\.git)?$'); }; f";  # Sort into owner/repo format; tests: https://regex101.com/r/ll16aT/1
+        cl = "!f() { git clone \"$1\" $(echo \"$1\" | rg --only-matching --replace '$OWNER$REPO' '(?<OWNER>[\\w-]+/)?(?<REPO>[\\w-]+)(?:\.git)?$'); }; f"; # Sort into owner/repo format; tests: https://regex101.com/r/ll16aT/1
         cli = "clean --interactive";
         d = "diff";
         dog = "log --decorate --oneline --graph";
