@@ -95,6 +95,7 @@ in
       gh
       gnumake
       gnuplot
+      go-mockery
       golangci-lint
       graphviz
       hexyl
