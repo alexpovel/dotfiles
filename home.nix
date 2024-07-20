@@ -84,6 +84,7 @@ in
         bottom
         capnproto
         cargo-insta
+        cargo-msrv
         cargo-udeps
         cmake
         coreutils-prefixed
