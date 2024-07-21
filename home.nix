@@ -85,6 +85,7 @@ in
         capnproto
         cargo-insta
         cargo-msrv
+        cargo-tarpaulin
         cargo-udeps
         cmake
         coreutils-prefixed
