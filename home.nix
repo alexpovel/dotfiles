@@ -73,6 +73,9 @@ in
 
     packages = with pkgs;
       let
+        git-url-extract-path = import ./packages/git-url-path-extract.nix {
+          inherit (pkgs) writers;
+        };
         luazstd = import ./packages/lua-zstd.nix {
           inherit (pkgs) fetchFromGitHub fetchurl zstd;
           inherit (pkgs.luajitPackages) buildLuarocksPackage luaOlder;
@@ -97,6 +100,7 @@ in
         fastgron
         ffmpeg
         gh
+        git-url-extract-path
         gnumake
         gnuplot
         go-mockery
@@ -282,7 +286,7 @@ in
         c = "commit";
         ca = "commit --all";
         cano = "commit --amend --no-edit";
-        cl = "!f() { git clone \"$1\" $(echo \"$1\" | rg --only-matching --replace '$OWNER$REPO' '(?<OWNER>[\\w-]+/)?(?<REPO>[\\w-]+)(?:\.git)?$'); }; f"; # Sort into owner/repo format; tests: https://regex101.com/r/ll16aT/1
+        cl = "!f() { git clone \"$1\" $(git-url-extract-path \"$1\"); }; f"; # Sort into owner/repo format
         cli = "clean --interactive";
         d = "diff";
         dog = "log --decorate --oneline --graph";
