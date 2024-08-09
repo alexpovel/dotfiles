@@ -99,6 +99,7 @@ in
         eza
         fastgron
         ffmpeg
+        google-cloud-sdk
         gh
         git-url-extract-path
         gnumake
