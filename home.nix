@@ -391,6 +391,10 @@ in
 
       addKeysToAgent = ssh.agentDuration;
       compression = true;
+      includes = [
+        # Place add. config files here. Allows for non-Nix managed, throw-away configs.
+        "dynamic.d/*"
+      ];
     };
 
     starship = {
