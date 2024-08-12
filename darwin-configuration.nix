@@ -59,6 +59,7 @@
 
     casks = [
       "calibre"
+      "db-browser-for-sqlite"
       "discord"
       "docker"
       "firefox"
