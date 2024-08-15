@@ -83,6 +83,7 @@ in
       in
       [
         ansible
+        ansible-lint
         bat
         bottom
         capnproto
