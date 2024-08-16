@@ -87,6 +87,7 @@ in
         bat
         bottom
         capnproto
+        cargo-flamegraph
         cargo-insta
         cargo-msrv
         cargo-tarpaulin
