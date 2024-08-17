@@ -73,10 +73,10 @@ in
 
     packages = with pkgs;
       let
-        git-url-extract-path = import ./packages/git-url-path-extract.nix {
+        git-url-extract-path = import ./packages/build/git-url-path-extract.nix {
           inherit (pkgs) writers;
         };
-        luazstd = import ./packages/lua-zstd.nix {
+        luazstd = import ./packages/build/lua-zstd.nix {
           inherit (pkgs) fetchFromGitHub fetchurl zstd;
           inherit (pkgs.luajitPackages) buildLuarocksPackage luaOlder;
         };
