@@ -87,8 +87,8 @@ in
   rustup
   shellcheck
   sqlite
-  srgn
   squawk
+  srgn
   terraform
   tldr
   tokei
