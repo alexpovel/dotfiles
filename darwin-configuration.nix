@@ -69,6 +69,7 @@
       "nextcloud"
       "raycast"
       "signal"
+      "spotify"
       "vlc"
     ];
 
