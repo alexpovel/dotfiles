@@ -48,6 +48,7 @@ in
   ffmpeg
   gcloud
   gh
+  git-absorb
   git-url-extract-path
   gnumake
   gnuplot
