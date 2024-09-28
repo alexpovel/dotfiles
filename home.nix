@@ -431,10 +431,6 @@ in
             done
         }
 
-        # https://unix.stackexchange.com/a/100860
-        bindkey '^[[A' history-beginning-search-backward
-        bindkey '^[[B' history-beginning-search-forward
-
         setopt interactive_comments # Allow comments in interactive shell, to tag them for later search
 
         # `HOME` happens to send '^[[1~' and `END` '^[[4~' on my machine (no idea), see also
@@ -457,6 +453,10 @@ in
         path+=("$(go env GOPATH)/bin")  # Target for 'go install'; for syntax, see also https://stackoverflow.com/a/18077919
 
         export WORDCHARS='-_' # Consider only these part of words (default is MUCH more); see also `man zshall | grep -C5 'WORDCHARS'`
+
+        export HISTORY_SUBSTRING_SEARCH_FUZZY=1 # Fuzzy search in history
+        export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1 # Don't show duplicates
+        export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_TIMEOUT=2 # Highlight matches for 2 seconds
 
         # These were unset or "C" before, causing wrong Unicode processing and 'Unknown local' warnings.
         # From `man 7 locale`, it seems `LANG` and `LC_ALL` in combination suffice (`locale` now prints `en_US.UTF-8` for everything).
@@ -491,6 +491,10 @@ in
         extended = true;
         ignoreSpace = true; # True is default, but be extra sure. Relying on this for secrets
         size = 1000000;
+      };
+
+      historySubstringSearch = {
+        enable = true;
       };
     };
   };
