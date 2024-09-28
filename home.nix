@@ -366,6 +366,10 @@ in
         # Make it obnoxiously different; with a non-hex value, suggestions and actual
         # insertions were the same color.
         highlight = "fg=#c787ee,bold";
+        strategy = [
+          "history"
+          "completion"
+        ];
       };
 
       syntaxHighlighting = {
