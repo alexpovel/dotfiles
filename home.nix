@@ -374,6 +374,10 @@ in
 
       syntaxHighlighting = {
         enable = true;
+        highlighters = [
+          "main"
+          "brackets"
+        ];
       };
 
       initExtraBeforeCompInit = ''
