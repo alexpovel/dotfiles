@@ -363,6 +363,9 @@ in
 
       autosuggestion = {
         enable = true;
+        # Make it obnoxiously different; with a non-hex value, suggestions and actual
+        # insertions were the same color.
+        highlight = "fg=#c787ee,bold";
       };
 
       syntaxHighlighting = {
@@ -450,8 +453,6 @@ in
         path+=("$(go env GOPATH)/bin")  # Target for 'go install'; for syntax, see also https://stackoverflow.com/a/18077919
 
         export WORDCHARS='-_' # Consider only these part of words (default is MUCH more); see also `man zshall | grep -C5 'WORDCHARS'`
-
-        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#c787ee,bold' # Make it obnoxiously different; with a non-hex value, suggestions and actual insertions were the same color.
 
         # These were unset or "C" before, causing wrong Unicode processing and 'Unknown local' warnings.
         # From `man 7 locale`, it seems `LANG` and `LC_ALL` in combination suffice (`locale` now prints `en_US.UTF-8` for everything).
