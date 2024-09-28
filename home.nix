@@ -184,7 +184,7 @@ in
         cl = "!f() { git clone \"$1\" $(git-url-extract-path \"$1\"); }; f"; # Sort into owner/repo format
         cli = "clean --interactive";
         d = "diff";
-        dog = "log --decorate --oneline --graph";
+        dog = "log --decorate --oneline --graph --pretty=format:'%C(auto)%h%d %s %C(240)- %cr %C(240)- %an'";
         doga = "dog --all";
         dogaf = "doga --first-parent";
         dogf = "dog --first-parent";
