@@ -380,6 +380,15 @@ in
         ];
       };
 
+      plugins = [
+        {
+          # Get some more native completions (e.g. `go` command). See list at
+          # https://github.com/zsh-users/zsh-completions/tree/master/src
+          name = "zsh-completions";
+          src = "${pkgs.zsh-completions}/share/zsh/site-functions";
+        }
+      ];
+
       initExtraBeforeCompInit = ''
         # zmodload zsh/zprof # Uncomment for `zprof`
 
