@@ -14,9 +14,12 @@ from pathlib import Path as P
 
 import httpx as h
 import httpx_auth as ha
+from pint import UnitRegistry
 
 c = h.Client()
 c.base_url = "https://example.com"
 if token := os.environ.get("API_TOKEN"):
     c.auth = ha.HeaderApiKey(f"Bearer {token}", "Authorization")
     print("\x1b[31mRequests will use Bearer token auth\x1b[0m")
+
+u = UnitRegistry()

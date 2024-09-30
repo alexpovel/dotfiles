@@ -21,6 +21,7 @@ let
     httpx-auth
     ipython
     pandas
+    pint
   ]));
   srgn = import ./../build/srgn.nix {
     inherit pkgs;
