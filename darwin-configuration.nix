@@ -60,6 +60,7 @@
     casks = [
       "calibre"
       "db-browser-for-sqlite"
+      "dbeaver-community"
       "discord"
       "docker"
       "firefox"
