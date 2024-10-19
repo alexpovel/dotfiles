@@ -4,16 +4,16 @@
 rec {
   # See also https://github.com/NixOS/nixpkgs/pull/293076, adjusted here
   pname = "srgn";
-  version = "srgn-v0.13.1";
+  version = "srgn-v0.13.3";
 
   src = pkgs.fetchFromGitHub {
     owner = "alexpovel";
     repo = pname;
     rev = version;
-    hash = "sha256-KG5y5V+IWIAlFULnJEomNF2Q/jyKHSSJ6o83J6vlP8w="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
+    hash = "sha256-JjO4ZH4CYu2qwYfUrwTASYuxyBjObLb9ydPPbObew0g="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
   };
 
-  cargoHash = "sha256-Zi5QIFInh/pBLAQ8l+mqRMZlcrCT2zLPOArqtdmruYI="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
+  cargoHash = "sha256-arM7N6gX3QfyRCFgoHBTzcLwv69XBxNXG4+rYdX4vAg="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
 
   nativeBuildInputs = [ pkgs.installShellFiles ];
 
