@@ -72,6 +72,7 @@
       "signal"
       "spotify"
       "vlc"
+      "zotero"
     ];
 
     masApps = {
