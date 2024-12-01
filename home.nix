@@ -78,22 +78,25 @@ in
     alacritty = {
       enable = true;
       settings = {
-        working_directory = shellStartupDir;
-
-        shell = {
-          program = pkgs.lib.getExe pkgs.tmux;
-          args = [
-            "new-session"
-            "-A"
-            "-D"
-            "-s"
-            "main"
+        general = {
+          working_directory = shellStartupDir;
+          import = [
+            "${pkgs.alacritty-theme}/material_theme.toml"
           ];
         };
 
-        import = [
-          "${pkgs.alacritty-theme}/material_theme.toml"
-        ];
+        terminal = {
+          shell = {
+            program = pkgs.lib.getExe pkgs.tmux;
+            args = [
+              "new-session"
+              "-A"
+              "-D"
+              "-s"
+              "main"
+            ];
+          };
+        };
 
         window = {
           startup_mode = "Fullscreen";
