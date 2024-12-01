@@ -18,7 +18,9 @@ let
   };
   python = (python3.withPackages (p: with p; [
     httpx
-    httpx-auth
+    (httpx-auth.overridePythonAttrs (old: {
+      doCheck = false;
+    }))
     ipython
     pandas
     pint
