@@ -31,15 +31,12 @@ in
   ansible
   ansible-lint
   bat
-  bottom
-  capnproto
   cargo-flamegraph
   cargo-insta
   cargo-msrv
   cargo-tarpaulin
   cargo-udeps
   cmake
-  coreutils-prefixed
   curl
   dig
   erdtree
@@ -47,13 +44,10 @@ in
   eza
   fastgron
   ffmpeg
-  gcloud
   gh
-  git-absorb
   git-url-extract-path
   gnumake
   gnuplot
-  go-mockery
   golangci-lint
   graphviz
   hexyl
@@ -65,7 +59,6 @@ in
   jq
   just
   kubectl
-  kubelogin-oidc
   kubernetes-helm
   lua
   ncdu
@@ -79,26 +72,19 @@ in
   parallel
   perl
   pipx
-  poetry
   postgresql
   pre-commit
-  protobuf
   python
   rclone
   rsync
   rustup
   shellcheck
   sqlite
-  squawk
   srgn
-  terraform
   tldr
   tokei
   typescript
   typst
-  vault
   wget
   whois
-  yq-go
-  zstd
 ]
