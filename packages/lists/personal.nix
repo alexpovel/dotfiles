@@ -39,6 +39,7 @@ in
   cargo-tarpaulin
   cargo-udeps
   cmake
+  cue
   curl
   dig
   erdtree
