@@ -8,10 +8,6 @@ let
   zshCustomCompletionsRelToHome = ".zsh_custom_completions";
   zshCustomCompletions = "${home}/${zshCustomCompletionsRelToHome}";
 
-  # Alacritty default is 10k, its maximum 100k; tmux default is 2k; filling up 100k
-  # lines w/ tmux takes 600 MB memory, so let's not max it out
-  terminalScrollback = 20000;
-
   ssh = {
     agentDuration = "12h";
     key = rec {
@@ -75,81 +71,6 @@ in
   };
 
   programs = {
-    alacritty = {
-      enable = true;
-      settings = {
-        general = {
-          working_directory = shellStartupDir;
-          import = [
-            "${pkgs.alacritty-theme}/material_theme.toml"
-          ];
-        };
-
-        terminal = {
-          shell = {
-            program = pkgs.lib.getExe pkgs.tmux;
-            args = [
-              "new-session"
-              "-A"
-              "-D"
-              "-s"
-              "main"
-            ];
-          };
-        };
-
-        window = {
-          startup_mode = "Fullscreen";
-          option_as_alt = "Both";
-        };
-
-        scrolling = {
-          history = terminalScrollback;
-        };
-
-        keyboard = {
-          bindings = [
-            {
-              # https://github.com/alacritty/alacritty/issues/474#issuecomment-338803299
-              key = "Left";
-              mods = "Alt";
-              chars = "\\u001bb";
-            }
-            {
-              # https://github.com/alacritty/alacritty/issues/474#issuecomment-338803299
-              key = "Right";
-              mods = "Alt";
-              chars = "\\u001bf";
-            }
-            {
-              # https://github.com/alacritty/alacritty/issues/474#issuecomment-338803299
-              key = "Left";
-              mods = "Command";
-              chars = "\\u001bOH";
-            }
-            {
-              # https://github.com/alacritty/alacritty/issues/474#issuecomment-338803299
-              key = "Right";
-              mods = "Command";
-              chars = "\\u001bOF";
-            }
-          ];
-        };
-
-        selection = {
-          save_to_clipboard = true;
-        };
-
-        font = {
-          normal = {
-            family = "FiraCode Nerd Font";
-            style = "Regular"; # Default one is too thin
-          };
-          size = 22; # Going blind over here
-        };
-      };
-    };
-
     direnv = {
       enable = true;
     };
@@ -167,10 +88,6 @@ in
       fileWidgetOptions = [
         "--preview '${pkgs.bat}/bin/bat --style=numbers --color=always --line-range :100 {}'"
       ];
-
-      tmux = {
-        enableShellIntegration = false; # Kinda neat but doesn't put fzf where I want it
-      };
     };
 
     git = {
@@ -332,21 +249,6 @@ in
 
     };
 
-    tmux = {
-      enable = true;
-
-      baseIndex = 1; # Default of 0 is inconvenient
-      historyLimit = terminalScrollback;
-      mouse = true; # For scrolling easily
-
-      extraConfig = ''
-        # https://stackoverflow.com/a/45010147/11477374
-        set-option -g status-interval 2
-        set-option -g automatic-rename on
-        set-option -g automatic-rename-format "#{?#{==:#{pane_current_command},zsh},#{b:pane_current_path},#{pane_current_command}}"
-      '';
-    };
-
     vim = {
       enable = true;
     };
@@ -458,9 +360,6 @@ in
         # https://thevaluable.dev/zsh-completion-guide-examples/
         zstyle ':completion:*' menu select
         bindkey '^[[Z' reverse-menu-complete # Shift-Tab; https://unix.stackexchange.com/a/722487
-
-        # Launch and `d`etach new window at `t`arget index, with specific `n`ame
-        tmux list-windows -F '#W' | grep -q 'pi' || tmux new-window -d -n 'pi' -t 2 'ipython' || true
 
         # zprof # Uncomment for `zprof`
       '';
