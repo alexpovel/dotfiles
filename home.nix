@@ -5,9 +5,6 @@ let
   home = config.home.homeDirectory;
   shellStartupDir = "${home}/Code";
 
-  zshCustomCompletionsRelToHome = ".zsh_custom_completions";
-  zshCustomCompletions = "${home}/${zshCustomCompletionsRelToHome}";
-
   ssh = {
     agentDuration = "12h";
     key = rec {
@@ -37,6 +34,15 @@ in
         source = ./home/.ipython;
         recursive = true;
       };
+      ".config/ghostty/config" = {
+        text = ''
+          # keybind = global:ctrl+grave_accent=toggle_quick_terminal
+          # quick-terminal-animation-duration = 0
+
+          font-size = 20
+          command = "${pkgs.lib.getExe pkgs.fish}"
+        '';
+      };
       ".ignore" = {
         # General-purpose ignore file. For example, this can be picked up by `rg`:
         # https://github.com/BurntSushi/ripgrep/blob/f1d23c06e30606b2428a4e32da8f0b5069e81280/GUIDE.md#L184
@@ -56,13 +62,6 @@ in
           Pictures
           Public
           .git/
-        '';
-      };
-      "${zshCustomCompletionsRelToHome}/dummy" = {
-        text = ''
-          # Placeholder for zsh completions, to ensure this directory is created.
-          # Managing this in Nix ensures proper lifecycle management.
-          # Completion scripts of the form `_some-command` can be placed in this directory.
         '';
       };
     };
@@ -213,7 +212,7 @@ in
 
     starship = {
       enable = true;
-      enableZshIntegration = true;
+      enableFishIntegration = true;
 
       settings = {
         kubernetes = {
@@ -233,18 +232,6 @@ in
           untracked = "\${count}u";
           up_to_date = "✓";
         };
-
-        custom = {
-          sshagent = {
-            # Convenience function to not be surprised by untimely password prompts.
-            command = ''
-              [[ $(ssh-add -L) =~ "no identities" ]] && echo '! 🔐 ssh agent vacant'
-            '';
-            when = true;
-            style = "bold yellow";
-            description = "Indicates whether any identites are represented by the ssh agent";
-          };
-        };
       };
 
     };
@@ -261,155 +248,100 @@ in
       enable = true;
     };
 
-    zsh = {
-      # Things like starship and fzf integration only start working if home-manager manages zsh.
-      # While nix-darwin manages `/etc/zshrc`, home-manager manages `~/.zshrc`, and will source etc. there.
+    fish = {
+      # Things like starship and fzf integration only start working if home-manager manages fish.
       enable = true;
 
-      autosuggestion = {
-        enable = true;
-        # Make it obnoxiously different; with a non-hex value, suggestions and actual
-        # insertions were the same color.
-        highlight = "fg=#c787ee,bold";
-        strategy = [
-          "history"
-          "completion"
-        ];
+      functions = {
+        backup_history = {
+          body = ''
+            echo "Running history backup"
+
+            set --local BACKUP_SRC "$HOME/.local/share/fish/fish_history"
+            set --local BACKUP_DST "$HOME/Nextcloud/.backup/fish_history/$(hostname)/.fish_history"
+
+            if test -e "$BACKUP_SRC"
+                mkdir -p "$(dirname $BACKUP_DST)"
+                cp "$BACKUP_SRC" "$BACKUP_DST"
+            end
+          '';
+          description = "Backup fish history";
+        };
+
+        init_ssh = {
+          body = ''
+            if not test -f ${ssh.key.priv}
+              ssh-keygen -t ${ssh.key.type} -f ${ssh.key.priv}
+              and echo "Run \`ssh-keygen -c\` to set comment on new key"
+            end
+
+            if not string match -q -- "*"(cat ${ssh.key.pub})"*" (ssh-add -L)
+              echo -n "(Hit Return to skip adding ssh key to agent) "
+              and ssh-add -t '${ssh.agentDuration}' ${ssh.key.priv}
+            end
+          '';
+          description = "Generate (if necessary) and add SSH key ${ssh.key.pub} to agent";
+        };
       };
 
-      syntaxHighlighting = {
-        enable = true;
-        highlighters = [
-          "main"
-          "brackets"
-        ];
-      };
+      shellInit = ''
+        # Target of `go install`:
+        # https://pkg.go.dev/cmd/go#hdr-Compile_and_install_packages_and_dependencies
+        fish_add_path $(go env GOBIN)
+      '';
 
-      plugins = [
+      interactiveShellInit = ''
+        set fish_greeting # Disable greeting
+
+        # Manual setup required: we keep a default shell of `/bin/zsh` for login shells.
+        # This breaks Ghostty if we don't help it.
+        # https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup
+        if test -n "$GHOSTTY_RESOURCES_DIR"
+            builtin source "$GHOSTTY_RESOURCES_DIR"/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish
+        end
+
+        # Completions
+        if not test -f ~/.config/fish/completions/docker.fish
+          docker completion fish > ~/.config/fish/completions/docker.fish
+        end
+
+        # Custom functions. Note that event handlers cannot live in the functions/
+        # directory, as auto-sourcing does not work for them
+        # (https://fishshell.com/docs/current/language.html#event-handlers). So define
+        # some thin wrappers which handle the event here, while keeping the function
+        # definitions in the functions/ directory.
+
+        function init_ssh_event_handler --on-event="fish_preexec" --wraps "init_ssh"
+          set --local cmd (string trim -- $argv)
+
+          # Only fire on commands requiring ssh keys
+          if not string match --quiet --regex '^(git|ssh) ' -- $cmd
+            return
+          end
+
+          init_ssh
+        end
+
+        function backup_history_event_handler --on-event="fish_exit" --wraps "backup_history"
+          backup_history
+        end
+      '';
+
+      shellAliases =
         {
-          # Get some more native completions (e.g. `go` command). See list at
-          # https://github.com/zsh-users/zsh-completions/tree/master/src
-          name = "zsh-completions";
-          src = "${pkgs.zsh-completions}/share/zsh/site-functions";
-        }
-      ];
+          cat = "bat";
+          l = "eza --long --header --all --all"; # `all` twice gives `.` and `..`
+          rr = "git rev-parse --show-toplevel 2>/dev/null || pwd"; # Get current git repo's root, if possible; can be used as `cd $(rr)`, `z `rr`` etc.
+        };
 
-      initExtraBeforeCompInit = ''
-        # zmodload zsh/zprof # Uncomment for `zprof`
-
-        # Expand where zsh looks for completions.
-        # This slows down shell startup massively (~200ms), even for simple completions (https://www.reddit.com/r/zsh/comments/wrbi1v/7x_slowdown_when_modify_fpath_and_add_completion/).
-        # THAT'S TRUE EVEN IF THIS DIRECTORY IS EMPTY, which some tests showed.
-        fpath+=(${zshCustomCompletions})
-
-        # https://docs.docker.com/config/completion/#zsh
-        # Do this dynamically to keep completions in sync. We're rocking Docker Desktop,
-        # which isn't natively installable via Nix (which usually takes care of completions).
-        docker completion zsh > ${zshCustomCompletions}/_docker # Not the cheapest call; ~20ms on warm cache
-
-        for cmd in 'rustup' 'cargo'; do
-          # `cargo` completions were actually already set up, but `rustup` weren't.
-          # Just do both for consistency.
-          rustup completions zsh "$cmd" > "${zshCustomCompletions}/_$cmd";
-        done
-
-        # More completions go here, in the form of `_some-command`...
-        # Note: Nix will install most completions natively already.
-      '';
-
-      initExtra = ''
-        test -f ${ssh.key.priv} || { ssh-keygen -t ${ssh.key.type} -f ${ssh.key.priv} && echo "Run \`ssh-keygen -c\` to set comment on new key"; }
-        ssh-add -L | grep "$(cat ${ssh.key.pub})" || { echo -n "(Hit Return to skip) " && ssh-add -t '${ssh.agentDuration}' ${ssh.key.priv}; }
-
-        wf() {
-            # "`w`here `f`ile": which files contain the given regex?
-            #
-            # Can be used as `vim $(wf -i 'foo')` to open a file containing 'foo'
-            # (case-insensitive).
-            rg --files-with-matches "$@" | fzf
-        }
-
-        # Clone a user's personal (== non-fork) GitHub repositories and pull *all* branches.
-        pullall() {
-            gh auth status 1>/dev/null 2>&1 || gh auth login
-
-            local USER="$1"
-
-            gh repo list "$USER" --limit 1000 --source | while read -r repo _; do
-                gh repo clone "$repo" "$repo" || (
-                    cd "$repo"
-
-                    for branch in 'main' 'master' 'dev' 'devel'; do
-                        # Need to be on a branch to pull; first one found wins.
-                        git switch "$branch" && break
-                    done
-
-                    git pull --all || echo "Failed to pull $repo"
-                )
-            done
-        }
-
-        setopt interactive_comments # Allow comments in interactive shell, to tag them for later search
-
-        # `HOME` happens to send '^[[1~' and `END` '^[[4~' on my machine (no idea), see also
-        # https://github.com/search?type=code&q=%27%5E%5B%5B1%7E%27 .
-        # Found out via `command cat -v` and pressing the keys.
-        bindkey '^[[1~' beginning-of-line
-        bindkey '^[[4~' end-of-line
-
-        # https://thevaluable.dev/zsh-completion-guide-examples/
-        zstyle ':completion:*' menu select
-        bindkey '^[[Z' reverse-menu-complete # Shift-Tab; https://unix.stackexchange.com/a/722487
-
-        # zprof # Uncomment for `zprof`
-      '';
-
-      envExtra = ''
-        path+=("$(go env GOPATH)/bin")  # Target for 'go install'; for syntax, see also https://stackoverflow.com/a/18077919
-
-        export WORDCHARS='-_' # Consider only these part of words (default is MUCH more); see also `man zshall | grep -C5 'WORDCHARS'`
-
-        export HISTORY_SUBSTRING_SEARCH_FUZZY=1 # Fuzzy search in history
-        export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1 # Don't show duplicates
-        export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_TIMEOUT=2 # Highlight matches for 2 seconds
-
-        # These were unset or "C" before, causing wrong Unicode processing and 'Unknown local' warnings.
-        # From `man 7 locale`, it seems `LANG` and `LC_ALL` in combination suffice (`locale` now prints `en_US.UTF-8` for everything).
-        export LANG="en_US.UTF-8"
-        export LC_ALL="en_US.UTF-8"
-      '';
-      logoutExtra = ''
-        echo "Running history backup"
-        BACKUP_SRC=$HOME/.zsh_history # This breaks if ZDOTDIR != HOME
-        BACKUP_DST=$HOME/Nextcloud/.backup/zsh_history/$(hostname)/.zsh_history # Excuse the hard-coding
-        if [ -e "$BACKUP_SRC" ]; then
-            mkdir -p "$(dirname $BACKUP_DST)"
-            cp "$BACKUP_SRC" "$BACKUP_DST"
-        fi
-      '';
-
-      shellAliases = {
+      shellAbbrs = {
         c = "cargo";
         d = "docker";
-        cat = "bat";
         g = "git";
-        j = "just";
         k = "kubectl";
-        l = "eza --long --git --git-repos --header --all --all"; # `all` twice gives `.` and `..`
         m = "make";
         pi = "ipython";
-        rr = "git rev-parse --show-toplevel 2>/dev/null || pwd"; # Get current git repo's root, if possible; can be used as `cd $(rr)`, `z `rr`` etc.
         tf = "terraform";
-      };
-
-      history = {
-        extended = true;
-        ignoreSpace = true; # True is default, but be extra sure. Relying on this for secrets
-        size = 1000000;
-      };
-
-      historySubstringSearch = {
-        enable = true;
       };
     };
   };

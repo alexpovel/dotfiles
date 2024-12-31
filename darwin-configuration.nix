@@ -28,6 +28,14 @@
       enable = true;
     };
 
+    fish = {
+      # Hook fish into global config as well, else might run into problems like
+      # https://wiki.nixos.org/wiki/Fish#Running_fish_interactively_with_zsh_as_system_shell_on_darwin
+      # and
+      # https://discourse.nixos.org/t/using-fish-interactively-with-zsh-as-the-default-shell-on-macos/48402
+      enable = true;
+    };
+
     bash = {
       # Some tools might have `/bin/bash` hard-coded, so help get Nix into those.
       enable = true;
