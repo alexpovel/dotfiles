@@ -282,6 +282,31 @@ in
           '';
           description = "Generate (if necessary) and add SSH key ${ssh.key.pub} to agent";
         };
+
+        kubectl_expand = {
+          description = "Provides kubectl command with current context and namespace";
+          body = ''
+            set --local result "kubectl"
+
+            # Only fetch once, expensive call
+            set --local config (kubectl config view --minify --output=json 2>/dev/null)
+
+            if test $status -eq 0
+              set --local current_context (echo $config | jq --raw-output '.["current-context"] // empty')
+              if test -n "$current_context"
+                set --append result "--context='$current_context'"
+              end
+
+              # Assumption: due to `--minify`, there is only one context
+              set --local current_namespace (echo $config | jq --raw-output '.contexts[0].context.namespace // empty')
+              if test -n "$current_namespace"
+                set --append result "--namespace='$current_namespace'"
+              end
+            end
+
+            echo (string join " " -- $result)
+          '';
+        };
       };
 
       shellInit = ''
@@ -338,7 +363,11 @@ in
         c = "cargo";
         d = "docker";
         g = "git";
-        k = "kubectl";
+        k = {
+          # Expand this fully, for example to `kubectl --context=foo --namespace=bar`,
+          # for easy copy-pasting around and meaningful shell history.
+          function = "kubectl_expand";
+        };
         m = "make";
         pi = "ipython";
         tf = "terraform";
