@@ -55,7 +55,6 @@ in
   kubernetes-helm
   lua
   ncdu
-  neofetch
   nil
   nix-direnv
   nixpkgs-fmt
