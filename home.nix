@@ -325,6 +325,18 @@ in
             echo (string join " " -- $result)
           '';
         };
+
+        ppc = {
+          description = "Pretty-print previous command line and output to clipboard";
+          body = ''
+            set --local prev_cmd $history[1]
+            if test -n "$prev_cmd"
+              set --local prompt "\$ $prev_cmd"
+              set --append prompt (eval $prev_cmd 2>&1)
+              string join \n -- $prompt | fish_clipboard_copy
+            end
+          '';
+        };
       };
 
       shellInit = ''
