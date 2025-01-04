@@ -70,7 +70,6 @@ in
   shellcheck
   sqlite
   srgn
-  tldr
   tokei
   typescript
   typst
