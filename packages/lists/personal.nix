@@ -33,7 +33,6 @@ in
   curl
   dig
   erdtree
-  exiftool
   eza
   fastgron
   ffmpeg
