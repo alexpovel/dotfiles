@@ -58,7 +58,6 @@ in
   nodejs
   pandoc
   parallel
-  pipx
   postgresql
   pre-commit
   python
