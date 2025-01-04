@@ -57,7 +57,6 @@ in
   nmap
   nodejs
   pandoc
-  parallel
   postgresql
   pre-commit
   python
