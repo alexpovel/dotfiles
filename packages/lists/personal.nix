@@ -44,7 +44,6 @@ in
   golangci-lint
   graphviz
   hexyl
-  htop
   hyperfine
   imagemagick
   inetutils # telnet, ping, traceroute, whois
