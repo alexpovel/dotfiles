@@ -6,11 +6,6 @@ let
     inherit (pkgs) writers;
   };
   gcloud = (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ]);
-  lua = (luajit.withPackages (p: with p; [
-    luacheck
-    luaunit
-    luarocks
-  ]));
   python = (python3.withPackages (p: with p; [
     httpx
     (httpx-auth.overridePythonAttrs (old: {
