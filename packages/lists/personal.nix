@@ -48,7 +48,6 @@ in
   inetutils # telnet, ping, traceroute, whois
   inkscape
   jq
-  just
   kubectl
   kubernetes-helm
   lua
