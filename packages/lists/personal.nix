@@ -5,7 +5,6 @@ let
   git-url-extract-path = import ./../build/git-url-path-extract.nix {
     inherit (pkgs) writers;
   };
-  gcloud = (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ]);
   python = (python3.withPackages (p: with p; [
     httpx
     (httpx-auth.overridePythonAttrs (old: {
