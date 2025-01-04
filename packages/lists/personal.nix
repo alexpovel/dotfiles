@@ -10,12 +10,7 @@ let
     luacheck
     luaunit
     luarocks
-    luazstd
   ]));
-  luazstd = import ./../build/lua-zstd.nix {
-    inherit (pkgs) fetchFromGitHub fetchurl zstd;
-    inherit (pkgs.luajitPackages) buildLuarocksPackage luaOlder;
-  };
   python = (python3.withPackages (p: with p; [
     httpx
     (httpx-auth.overridePythonAttrs (old: {
