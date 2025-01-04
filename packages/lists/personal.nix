@@ -68,6 +68,7 @@ in
   tokei
   typescript
   typst
+  uv
   wget
   whois
 ]
