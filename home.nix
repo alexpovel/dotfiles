@@ -215,6 +215,12 @@ in
       enableFishIntegration = true;
 
       settings = {
+        right_format = "$time";
+        time = {
+          disabled = false;
+          format = "[$time]($style)";
+        };
+
         kubernetes = {
           disabled = false;
         };
@@ -233,7 +239,6 @@ in
           up_to_date = "✓";
         };
       };
-
     };
 
     vim = {
