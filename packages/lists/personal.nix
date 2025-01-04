@@ -27,7 +27,6 @@ in
   cargo-msrv
   cargo-tarpaulin
   cargo-udeps
-  cmake
   cue
   curl
   dig
