@@ -260,7 +260,6 @@ in
       # Things like starship and fzf integration only start working if home-manager manages fish.
       enable = true;
 
-
       plugins = [
         {
           name = "autopair";
@@ -385,12 +384,11 @@ in
         end
       '';
 
-      shellAliases =
-        {
-          cat = "bat";
-          l = "eza --long --header --all --all"; # `all` twice gives `.` and `..`
-          rr = "git rev-parse --show-toplevel 2>/dev/null || pwd"; # Get current git repo's root, if possible; can be used as `cd $(rr)`, `z `rr`` etc.
-        };
+      shellAliases = {
+        cat = "bat";
+        l = "eza --long --header --all --all"; # `all` twice gives `.` and `..`
+        rr = "git rev-parse --show-toplevel 2>/dev/null || pwd"; # Get current git repo's root, if possible; can be used as `cd $(rr)`, `z `rr`` etc.
+      };
 
       shellAbbrs = {
         c = "cargo";

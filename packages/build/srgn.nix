@@ -1,7 +1,6 @@
 { pkgs }:
 
-(pkgs.rustPlatform.buildRustPackage
-rec {
+(pkgs.rustPlatform.buildRustPackage rec {
   # See also https://github.com/NixOS/nixpkgs/pull/293076, adjusted here
   pname = "srgn";
   version = "srgn-v0.13.3";
@@ -22,5 +21,4 @@ rec {
       installShellCompletion --cmd srgn "--$shell" <("$out/bin/srgn" --completions "$shell")
     done
   '';
-}
-)
+})

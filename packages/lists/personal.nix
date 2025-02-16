@@ -5,15 +5,19 @@ let
   git-url-extract-path = import ./../build/git-url-path-extract.nix {
     inherit (pkgs) writers;
   };
-  python = (python3.withPackages (p: with p; [
-    httpx
-    (httpx-auth.overridePythonAttrs (old: {
-      doCheck = false;
-    }))
-    ipython
-    pandas
-    pint
-  ]));
+  python = (
+    python3.withPackages (
+      p: with p; [
+        httpx
+        (httpx-auth.overridePythonAttrs (old: {
+          doCheck = false;
+        }))
+        ipython
+        pandas
+        pint
+      ]
+    )
+  );
   srgn = import ./../build/srgn.nix {
     inherit pkgs;
   };

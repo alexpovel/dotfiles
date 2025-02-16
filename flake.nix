@@ -22,7 +22,15 @@
     };
   };
 
-  outputs = { home-manager, darwin, nix-homebrew, homebrew-core, homebrew-cask, ... }:
+  outputs =
+    {
+      home-manager,
+      darwin,
+      nix-homebrew,
+      homebrew-core,
+      homebrew-cask,
+      ...
+    }:
     {
       darwinConfigurations = {
         hostname = darwin.lib.darwinSystem {
