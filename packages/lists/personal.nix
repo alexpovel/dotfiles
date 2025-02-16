@@ -52,7 +52,7 @@ in
   ncdu
   nil
   nix-direnv
-  nixpkgs-fmt
+  nixfmt-rfc-style
   nmap
   nodejs
   pandoc
