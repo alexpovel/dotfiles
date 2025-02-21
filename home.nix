@@ -158,7 +158,7 @@ in
           };
         };
         merge = {
-          conflictstyle = "diff3";
+          conflictstyle = "zdiff3";
         };
         pull = {
           rebase = true;
