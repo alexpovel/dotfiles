@@ -141,8 +141,15 @@ in
       ];
 
       extraConfig = {
+        branch = {
+          sort = "-committerdate";
+        };
         commit = {
           gpgsign = true;
+          verbose = true;
+        };
+        column = {
+          ui = "auto";
         };
         core = {
           autocrlf = false;
@@ -150,12 +157,29 @@ in
           editor = "code --wait";
           fsmonitor = true;
         };
+        diff = {
+          algorithm = "histogram";
+          colorMoved = "plain";
+          mnemonicPrefix = true;
+          renames = true;
+        };
+        fetch = {
+          prune = true;
+          pruneTags = true;
+          all = true;
+        };
         gpg = {
           format = "ssh";
 
           ssh = {
             allowedSignersFile = "~/.ssh/allowed_signers";
           };
+        };
+        help = {
+          autocorrect = "prompt";
+        };
+        init = {
+          defaultBranch = "main";
         };
         merge = {
           conflictstyle = "zdiff3";
@@ -165,12 +189,16 @@ in
         };
         push = {
           autoSetupRemote = true;
+          followTags = true;
         };
         rebase = {
           updateRefs = true;
+          autoSquash = true;
+          autoStash = true;
         };
         rerere = {
           enabled = true;
+          autoUpdate = true;
         };
         user = {
           signingKey = ssh.key.pub;
