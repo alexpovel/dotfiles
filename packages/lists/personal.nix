@@ -60,6 +60,7 @@ in
   nmap
   nodejs
   pandoc
+  panicparse
   postgresql
   pre-commit
   python
