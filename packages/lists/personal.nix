@@ -66,7 +66,6 @@ in
   python
   rclone
   rsync
-  rustup
   shellcheck
   sqlite
   srgn

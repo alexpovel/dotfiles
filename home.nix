@@ -274,10 +274,6 @@ in
       enable = true;
     };
 
-    vscode = {
-      enable = true;
-    };
-
     zoxide = {
       enable = true;
     };
@@ -371,6 +367,14 @@ in
         # Target of `go install`:
         # https://pkg.go.dev/cmd/go#hdr-Compile_and_install_packages_and_dependencies
         fish_add_path $(go env GOBIN)
+
+        # We install rustup manually, outside Nix - macOS + Rust via Nix is a nightmare.
+        # See also https://rust-lang.github.io/rustup/installation/index.html
+        fish_add_path "$HOME/.cargo/bin"
+
+        # For proper Desktop integration, we install Code outside of Nix. Add the binary
+        # to the path as well.
+        fish_add_path '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/'
       '';
 
       interactiveShellInit = ''
@@ -384,8 +388,15 @@ in
         end
 
         # Completions
-        if not test -f ~/.config/fish/completions/docker.fish
-          docker completion fish > ~/.config/fish/completions/docker.fish
+        set completions_dir ~/.config/fish/completions
+        mkdir -p $completions_dir
+
+        if not test -f $completions_dir/docker.fish
+          docker completion fish > $completions_dir/docker.fish
+        end
+
+        if not test -f $completions_dir/rustup.fish
+          rustup completions fish > $completions_dir/rustup.fish
         end
 
         # Custom functions. Note that event handlers cannot live in the functions/
