@@ -77,6 +77,10 @@ in
       # to the path as well.
       "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/"
     ];
+
+    sessionVariables = {
+      "EDITOR" = "code --wait";
+    };
   };
 
   programs = {
@@ -164,7 +168,6 @@ in
         core = {
           autocrlf = false;
           eol = "lf";
-          editor = "code --wait";
           fsmonitor = true;
         };
         diff = {
