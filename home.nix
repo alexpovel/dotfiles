@@ -67,6 +67,16 @@ in
     };
 
     packages = import ./packages/lists/personal.nix { inherit pkgs; };
+
+    sessionPath = [
+      # We install rustup manually, outside Nix - macOS + Rust via Nix is a nightmare.
+      # See also https://rust-lang.github.io/rustup/installation/index.html
+      "$HOME/.cargo/bin"
+
+      # For proper Desktop integration, we install Code outside of Nix. Add the binary
+      # to the path as well.
+      "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/"
+    ];
   };
 
   programs = {
@@ -367,14 +377,6 @@ in
         # Target of `go install`:
         # https://pkg.go.dev/cmd/go#hdr-Compile_and_install_packages_and_dependencies
         fish_add_path $(go env GOBIN)
-
-        # We install rustup manually, outside Nix - macOS + Rust via Nix is a nightmare.
-        # See also https://rust-lang.github.io/rustup/installation/index.html
-        fish_add_path "$HOME/.cargo/bin"
-
-        # For proper Desktop integration, we install Code outside of Nix. Add the binary
-        # to the path as well.
-        fish_add_path '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/'
       '';
 
       interactiveShellInit = ''
