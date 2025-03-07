@@ -103,6 +103,13 @@ in
       ];
     };
 
+    # TODO: use
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ghostty.enable
+    # - should give better integration to get rid of manual Ghostty setup (see below)
+    # ghostty = {
+    #   enable = true;
+    # };
+
     git = {
       enable = true;
       userName = "Alex Povel";
