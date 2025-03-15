@@ -381,6 +381,25 @@ in
             end
           '';
         };
+
+        ts = {
+          description = "Print a UNIX timestamp human-readably.";
+          body = ''
+            python -c "
+            from datetime import datetime as dt, timezone
+            import sys
+
+            ts = float(sys.argv[1])
+
+            utc_dt = dt.fromtimestamp(ts, timezone.utc)
+            local_dt = dt.fromtimestamp(ts).astimezone()
+
+            print(f'Pretty:\t{local_dt.strftime(\"%c\")}')
+            print(f'UTC:\t{utc_dt.isoformat()}')
+            print(f'Local:\t{local_dt.isoformat()}')
+            " $argv[1]
+          '';
+        };
       };
 
       shellInit = ''
