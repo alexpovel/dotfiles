@@ -70,8 +70,6 @@
 
     casks = [
       "calibre"
-      "db-browser-for-sqlite"
-      "dbeaver-community"
       "discord"
       "docker"
       "firefox"
@@ -81,8 +79,6 @@
       "nextcloud"
       "raycast"
       "signal"
-      "spotify"
-      "vlc"
       "zotero"
     ];
 
