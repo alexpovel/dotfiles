@@ -49,6 +49,7 @@ in
   imagemagick
   inetutils # telnet, ping, traceroute, whois
   inkscape
+  jd-diff-patch
   jq
   kubectl
   kubernetes-helm
