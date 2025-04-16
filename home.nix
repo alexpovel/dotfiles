@@ -141,8 +141,11 @@ in
 
         # 'What does force-pushing the current branch to its upstream (overwriting it)
         # change to the PR of that upstream against main?'; similar to
-        # https://stackoverflow.com/a/52512813/11477374 . `@{u}`: upstream branch.
-        check-if-force-pushing-ruins-my-life = "!f() { git range-diff main HEAD $(git rev-parse @{u}); }; f";
+        # https://stackoverflow.com/a/52512813/11477374 . `@{u}`: upstream branch. This
+        # prints output similar to what services like GitHub or GitHub show as "changes
+        # from last version" on a PR, i.e. it respects different branch states w.r.t.
+        # trunk etc.
+        check-if-force-pushing-ruins-my-life = "!f() { git range-diff main $(git rev-parse @{u}) HEAD; }; f";
       };
 
       delta = {
