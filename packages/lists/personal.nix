@@ -32,6 +32,7 @@ in
   cue
   curl
   dig
+  duckdb
   erdtree
   eza
   fastgron
