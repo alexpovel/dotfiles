@@ -11,6 +11,7 @@ let
         httpx
         httpx-auth
         ipython
+        matplotlib
         pandas
         pint
       ]

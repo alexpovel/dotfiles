@@ -23,3 +23,7 @@ if token := os.environ.get("API_TOKEN"):
     print("\x1b[31mRequests will use Bearer token auth\x1b[0m")
 
 u = UnitRegistry()
+u.setup_matplotlib()
+# Define some utility, dimensionless units (the empty `[]` means dimensionless):
+u.define("item = []")
+u.define("event = []")
