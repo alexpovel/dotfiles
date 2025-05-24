@@ -34,15 +34,6 @@ in
         source = ./home/.ipython;
         recursive = true;
       };
-      ".config/ghostty/config" = {
-        text = ''
-          # keybind = global:ctrl+grave_accent=toggle_quick_terminal
-          # quick-terminal-animation-duration = 0
-
-          font-size = 20
-          command = "${pkgs.lib.getExe pkgs.fish}"
-        '';
-      };
       ".ignore" = {
         # General-purpose ignore file. For example, this can be picked up by `rg`:
         # https://github.com/BurntSushi/ripgrep/blob/f1d23c06e30606b2428a4e32da8f0b5069e81280/GUIDE.md#L184
@@ -103,12 +94,14 @@ in
       ];
     };
 
-    # TODO: use
-    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ghostty.enable
-    # - should give better integration to get rid of manual Ghostty setup (see below)
-    # ghostty = {
-    #   enable = true;
-    # };
+    ghostty = {
+      enable = true;
+
+      settings = {
+        font-size = 20;
+        command = pkgs.lib.getExe pkgs.fish;
+      };
+    };
 
     git = {
       enable = true;
@@ -413,13 +406,6 @@ in
 
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
-
-        # Manual setup required: we keep a default shell of `/bin/zsh` for login shells.
-        # This breaks Ghostty if we don't help it.
-        # https://ghostty.org/docs/features/shell-integration#manual-shell-integration-setup
-        if test -n "$GHOSTTY_RESOURCES_DIR"
-            builtin source "$GHOSTTY_RESOURCES_DIR"/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish
-        end
 
         # Completions
         set completions_dir ~/.config/fish/completions
