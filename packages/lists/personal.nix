@@ -6,12 +6,10 @@ let
     inherit (pkgs) writers;
   };
   python = (
-    python3.withPackages (
+    python313.withPackages (
       p: with p; [
         httpx
-        (httpx-auth.overridePythonAttrs (old: {
-          doCheck = false;
-        }))
+        httpx-auth
         ipython
         pandas
         pint

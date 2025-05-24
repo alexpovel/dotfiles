@@ -1,13 +1,6 @@
 { pkgs, ... }:
 
 {
-  # Auto upgrade nix package and the daemon service.
-  services = {
-    nix-daemon = {
-      enable = true;
-    };
-  };
-
   nix = {
     package = pkgs.nix;
     settings = {
@@ -47,11 +40,7 @@
 
   fonts = {
     packages = [
-      (pkgs.nerdfonts.override {
-        fonts = [
-          "FiraCode"
-        ];
-      })
+      pkgs.nerd-fonts.fira-code
     ];
   };
 
@@ -96,8 +85,11 @@
     # $ darwin-rebuild changelog
     stateVersion = 4;
 
+    primaryUser = "alex"; # FIXME: Inject this
+
     activationScripts = {
-      postUserActivation = {
+      activateSettings = {
+        enable = true;
         # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
         text = "/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings - u";
       };
