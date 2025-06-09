@@ -80,6 +80,7 @@ in
 
     sessionVariables = {
       "EDITOR" = "code --wait";
+      "PIP_DISABLE_PIP_VERSION_CHECK" = "1";
     };
   };
 
