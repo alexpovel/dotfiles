@@ -41,6 +41,7 @@ in
 
           font-size = 20
           command = "${pkgs.lib.getExe pkgs.fish}"
+          theme = dark:Monokai Pro Machine,light:Monokai Pro Light
         '';
       };
       ".ignore" = {
