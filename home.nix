@@ -80,7 +80,7 @@ in
     ];
 
     sessionVariables = {
-      "EDITOR" = "code --wait";
+      "EDITOR" = "zed --wait";
       "PIP_DISABLE_PIP_VERSION_CHECK" = "1";
     };
   };
