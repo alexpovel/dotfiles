@@ -57,6 +57,7 @@ in
   ncdu
   nil
   nix-direnv
+  nixd
   nixfmt-rfc-style
   nmap
   nodejs
@@ -68,6 +69,7 @@ in
   rclone
   rsync
   shellcheck
+  shfmt
   sqlite
   srgn
   tokei
