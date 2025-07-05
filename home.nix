@@ -191,7 +191,6 @@ in
         fetch = {
           prune = true;
           pruneTags = true;
-          all = true;
         };
         gpg = {
           format = "ssh";
