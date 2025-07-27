@@ -299,6 +299,7 @@ in
               "vcsh"
               "fossil_branch"
               "fossil_metrics"
+              "{custom.jj}" # Has dot, so need braces syntax
               "git_branch"
               "git_commit"
               "git_state"
@@ -379,6 +380,21 @@ in
               "character"
             ]
           );
+
+          custom = {
+            jj = {
+              # https://gitlab.com/lanastara_foss/starship-jj#usage
+              command = "prompt";
+              format = "$output";
+              shell = [
+                "starship-jj"
+                "--ignore-working-copy"
+                "starship"
+              ];
+              use_stdin = false;
+              when = true;
+            };
+          };
 
           fill = {
             symbol = " ";

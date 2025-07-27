@@ -17,6 +17,9 @@ let
       ]
     )
   );
+  starship-jj = import ./../build/starship-jj.nix {
+    inherit pkgs;
+  };
   srgn = import ./../build/srgn.nix {
     inherit pkgs;
   };
@@ -71,6 +74,7 @@ in
   shellcheck
   shfmt
   sqlite
+  starship-jj
   srgn
   tokei
   typescript
