@@ -489,6 +489,19 @@ in
             '';
           };
 
+          jc = {
+            # cf. https://news.ycombinator.com/item?id=44640823
+            description = "Condense JSON by keeping only N elements of each array (default: 1)";
+            body = ''
+              set --local n 1
+              if test (count $argv) -gt 0
+                set n $argv[1]
+              end
+
+              ${pkgs.jq}/bin/jq 'def w: arrays |= .[:1]|iterables[] |= w; w'
+            '';
+          };
+
           ppc = {
             description = "Pretty-print previous command line and output to clipboard";
             body = ''
