@@ -502,6 +502,14 @@ in
             '';
           };
 
+          jstr = {
+            # cf. https://news.ycombinator.com/item?id=44640405
+            description = "Print structure of a JSON document";
+            body = ''
+              ${pkgs.jq}/bin/jq --raw-output '[path(..)|map(if type=="number" then "[]" end)]|unique[]|join(".")/".[]"|"."+join("[]")'
+            '';
+          };
+
           ppc = {
             description = "Pretty-print previous command line and output to clipboard";
             body = ''
