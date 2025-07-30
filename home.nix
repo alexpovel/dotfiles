@@ -266,7 +266,7 @@ in
 
           git = {
             push-new-bookmarks = true; # Just allow this by default
-            private-commits = "description(glob:'private:*')"; # enable pattern of https://jj-vcs.github.io/jj/v0.29.0/FAQ/#how-can-i-avoid-committing-my-local-only-changes-to-tracked-files
+            private-commits = "private()"; # enable pattern of https://jj-vcs.github.io/jj/v0.29.0/FAQ/#how-can-i-avoid-committing-my-local-only-changes-to-tracked-files
 
             push-bookmark-prefix = "${user}/"; # NB: this becomes `templates.git_push_bookmark` in 0.31.0, https://github.com/jj-vcs/jj/releases/tag/v0.31.0
           };
@@ -385,6 +385,7 @@ in
 
             "recent()" = "committer_date(after:'1 month ago')";
             "closest_bookmark(to)" = "heads(::to & bookmarks())";
+            "private()" = "description(glob:'private:*')";
           };
         };
       };
