@@ -362,6 +362,7 @@ in
 
             log-recent = [
               "log"
+              "--no-pager"
               "--revisions"
               "default() & recent()"
             ];
