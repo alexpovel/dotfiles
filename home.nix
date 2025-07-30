@@ -254,6 +254,135 @@ in
             name = vcs.name;
             email = vcs.email;
           };
+
+          core = {
+            fsmonitor = "watchman";
+            watchman = {
+              register-snapshot-trigger = true; # cf. `jj debug watchman status`
+            };
+          };
+
+          git = {
+            push-new-bookmarks = true; # Just allow this by default
+            private-commits = "description(glob:'private:*')"; # enable pattern of https://jj-vcs.github.io/jj/v0.29.0/FAQ/#how-can-i-avoid-committing-my-local-only-changes-to-tracked-files
+          };
+
+          template-aliases = {
+            "format_short_change_id(id)" = "id.shortest()"; # Only display the shortest possible ID
+          };
+
+          signing = {
+            # Same signing behavior as git
+            behavior = "own";
+            backend = "ssh";
+            key = ssh.key.pub;
+          };
+
+          templates = {
+            # Emulate `git commit --verbose`, which is neat for e.g. IDE autocomplete
+            # when writing commit messages.
+            draft_commit_description = ''
+              concat(
+                description,
+                surround(
+                  "\nJJ: This commit contains the following changes:\n", "",
+                  indent("JJ:     ", diff.stat(72)),
+                ),
+                "\nJJ: ignore-rest\n",
+                diff.git(),
+              )
+            '';
+
+            git_push_bookmark = ''"apovel/push-" ++ change_id.short()'';
+          };
+
+          fix = {
+            # TBD if I end up needing these or if they're a gimmick. Seems cool though.
+            tools = {
+              rust-format = {
+                command = [
+                  "rustfmt"
+                  "--emit"
+                  "stdout"
+                ];
+                patterns = [ "glob:'**/*.rs'" ];
+              };
+              go-format = {
+                command = [
+                  "goimports"
+                ];
+                patterns = [ "glob:'**/*.go'" ];
+              };
+              go-mod-tidy = {
+                command = [
+                  "go"
+                  "mod"
+                  "tidy"
+                ];
+                patterns = [
+                  "go.mod"
+                  "go.sum"
+                ];
+              };
+            };
+          };
+
+          ui = {
+            default-command = "log-recent";
+            diff = {
+              # NB: This config key becomes `diff-formatter` in 0.30.0, cf.
+              # https://github.com/jj-vcs/jj/releases/tag/v0.30.0.
+              tool = [
+                "difft"
+                "--color=always"
+                "$left"
+                "$right"
+              ];
+            };
+            conflict-marker-style = "snapshot"; # I find this easier to read, default one is a diff-based one
+          };
+
+          aliases = {
+            s = [
+              "status"
+              "--no-pager"
+            ];
+            l = [ "log" ];
+            ll = [
+              "log"
+              "-T"
+              "builtin_log_compact_full_description"
+            ];
+            d = [ "diff" ];
+            rb = [ "rebase" ];
+            b = [ "bookmark" ];
+            g = [ "git" ];
+
+            log-recent = [
+              "log"
+              "--revisions"
+              "default() & recent()"
+            ];
+            tug = [
+              # Pull the nearest bookmark to current worktree up. This helps when
+              # working on "branches" in the git sense, and adding new commits to their
+              # head.
+              "bookmark"
+              "move"
+              "--from"
+              "closest_bookmark(@-)"
+              "--to"
+              "@-"
+            ];
+          };
+
+          revset-aliases = {
+            # jj ships with this by default, cf. `jj config list --include-defaults --include-overridden revsets.log`
+            "default()" = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())";
+
+            "recent()" = "committer_date(after:'1 month ago')";
+            "closest_bookmark(to)" = "heads(::to & bookmarks())";
+          };
         };
       };
 

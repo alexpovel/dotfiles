@@ -35,6 +35,7 @@ in
   cargo-udeps
   cue
   curl
+  difftastic
   dig
   duckdb
   erdtree
@@ -46,6 +47,7 @@ in
   gnumake
   gnuplot
   golangci-lint
+  gotools
   graphviz
   hexyl
   hyperfine
@@ -80,6 +82,7 @@ in
   typescript
   typst
   uv
+  watchman
   wget
   whois
 ]
