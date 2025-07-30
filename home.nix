@@ -5,6 +5,8 @@ let
   home = config.home.homeDirectory;
   shellStartupDir = "${home}/Code";
 
+  user = config.home.username;
+
   ssh = {
     agentDuration = "12h";
     key = rec {
@@ -265,6 +267,8 @@ in
           git = {
             push-new-bookmarks = true; # Just allow this by default
             private-commits = "description(glob:'private:*')"; # enable pattern of https://jj-vcs.github.io/jj/v0.29.0/FAQ/#how-can-i-avoid-committing-my-local-only-changes-to-tracked-files
+
+            push-bookmark-prefix = "${user}/"; # NB: this becomes `templates.git_push_bookmark` in 0.31.0, https://github.com/jj-vcs/jj/releases/tag/v0.31.0
           };
 
           template-aliases = {
@@ -292,8 +296,6 @@ in
                 diff.git(),
               )
             '';
-
-            git_push_bookmark = ''"apovel/push-" ++ change_id.short()'';
           };
 
           fix = {
