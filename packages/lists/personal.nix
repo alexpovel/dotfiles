@@ -25,6 +25,7 @@ let
   };
 in
 [
+  # keep-sorted start
   ansible
   ansible-lint
   bat
@@ -56,6 +57,7 @@ in
   inkscape
   jd-diff-patch
   jq
+  keep-sorted
   kubectl
   kubernetes-helm
   lua
@@ -76,8 +78,8 @@ in
   shellcheck
   shfmt
   sqlite
-  starship-jj
   srgn
+  starship-jj
   tokei
   typescript
   typst
@@ -85,4 +87,5 @@ in
   watchman
   wget
   whois
+  # keep-sorted end
 ]

@@ -326,6 +326,13 @@ in
                   "go.sum"
                 ];
               };
+              keep-sorted = {
+                command = [
+                  "keep-sorted"
+                  "-"
+                ];
+                patterns = [ "glob:'**/*'" ];
+              };
             };
           };
 
