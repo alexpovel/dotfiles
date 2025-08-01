@@ -353,24 +353,8 @@ in
           };
 
           aliases = {
-            s = [
-              "status"
-              "--no-pager"
-            ];
-            l = [ "log" ];
-            ll = [
-              "log"
-              "-T"
-              "builtin_log_compact_full_description"
-            ];
-            d = [ "diff" ];
-            rb = [ "rebase" ];
-            b = [ "bookmark" ];
-            g = [ "git" ];
-
             log-recent = [
               "log"
-              "--no-pager"
               "--revisions"
               "default() & recent()"
             ];
@@ -764,7 +748,69 @@ in
             # for easy copy-pasting around and meaningful shell history.
             function = "kubectl_expand";
           };
+
           j = "jj";
+          jj_abandon = {
+            command = "jj";
+            regex = "a";
+            expansion = "abandon";
+          };
+          jj_bookmark = {
+            command = "jj";
+            regex = "b";
+            expansion = "bookmark";
+          };
+          jj_diff = {
+            command = "jj";
+            regex = "d";
+            expansion = "diff";
+          };
+          jj_edit = {
+            command = "jj";
+            regex = "e";
+            expansion = "edit";
+          };
+          jj_fetch = {
+            command = "jj";
+            regex = "f";
+            expansion = "git fetch";
+          };
+          jj_git = {
+            command = "jj";
+            regex = "g";
+            expansion = "git";
+          };
+          jj_new = {
+            command = "jj";
+            regex = "n";
+            expansion = "new";
+          };
+          jj_push = {
+            command = "jj";
+            regex = "p";
+            expansion = "git push";
+          };
+          jj_rebase = {
+            command = "jj";
+            regex = "rb";
+            expansion = "rebase --skip-emptied";
+          };
+          jj_status = {
+            command = "jj";
+            regex = "s";
+            expansion = "status";
+          };
+          jj_squash = {
+            command = "jj";
+            regex = "sq";
+            expansion = "squash";
+          };
+          jj_undo = {
+            command = "jj";
+            regex = "u";
+            expansion = "undo";
+          };
+
           m = "make";
           pi = "ipython";
           tf = "terraform";
