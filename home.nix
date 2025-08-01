@@ -349,6 +349,7 @@ in
               ];
             };
             conflict-marker-style = "snapshot"; # I find this easier to read, default one is a diff-based one
+            pager = "less --quit-if-one-screen --raw-control-chars --no-init";
           };
 
           aliases = {
