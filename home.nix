@@ -739,82 +739,51 @@ in
           rr = "git rev-parse --show-toplevel 2>/dev/null || pwd"; # Get current git repo's root, if possible; can be used as `cd $(rr)`, `z `rr`` etc.
         };
 
-        shellAbbrs = {
-          c = "cargo";
-          d = "docker";
-          g = "git";
-          k = {
-            # Expand this fully, for example to `kubectl --context=foo --namespace=bar`,
-            # for easy copy-pasting around and meaningful shell history.
-            function = "kubectl_expand";
-          };
-
-          j = "jj";
-          jj_abandon = {
-            command = "jj";
-            regex = "a";
-            expansion = "abandon";
-          };
-          jj_bookmark = {
-            command = "jj";
-            regex = "b";
-            expansion = "bookmark";
-          };
-          jj_diff = {
-            command = "jj";
-            regex = "d";
-            expansion = "diff";
-          };
-          jj_edit = {
-            command = "jj";
-            regex = "e";
-            expansion = "edit";
-          };
-          jj_fetch = {
-            command = "jj";
-            regex = "f";
-            expansion = "git fetch";
-          };
-          jj_git = {
-            command = "jj";
-            regex = "g";
-            expansion = "git";
-          };
-          jj_new = {
-            command = "jj";
-            regex = "n";
-            expansion = "new";
-          };
-          jj_push = {
-            command = "jj";
-            regex = "p";
-            expansion = "git push";
-          };
-          jj_rebase = {
-            command = "jj";
-            regex = "rb";
-            expansion = "rebase --skip-emptied";
-          };
-          jj_status = {
-            command = "jj";
-            regex = "s";
-            expansion = "status";
-          };
-          jj_squash = {
-            command = "jj";
-            regex = "sq";
-            expansion = "squash";
-          };
-          jj_undo = {
-            command = "jj";
-            regex = "u";
-            expansion = "undo";
-          };
-
-          m = "make";
-          pi = "ipython";
-          tf = "terraform";
-        };
+        shellAbbrs =
+          {
+            c = "cargo";
+            d = "docker";
+            g = "git";
+            k = {
+              # Expand this fully, for example to `kubectl --context=foo --namespace=bar`,
+              # for easy copy-pasting around and meaningful shell history.
+              function = "kubectl_expand";
+            };
+            j = "jj";
+            m = "make";
+            pi = "ipython";
+            tf = "terraform";
+          }
+          # Enable some jj-specific abbrs, which only trigger while within the `jj`
+          # command and not in others (NB: they trigger *anywhere* within the command,
+          # not just in the position they're legal in). Note each abbr still needs a
+          # globally unique name, hence the prefixes.
+          //
+            pkgs.lib.mapAttrs'
+              (regex: expansion: {
+                name = "jj_${builtins.replaceStrings [ " " "-" ] [ "_" "_" ] expansion}";
+                value = {
+                  command = "jj";
+                  inherit regex expansion;
+                };
+              })
+              {
+                # keep-sorted start
+                a = "abandon";
+                b = "bookmark";
+                d = "diff";
+                e = "edit";
+                f = "git fetch";
+                g = "git";
+                n = "new";
+                o = "operation";
+                p = "git push";
+                rb = "rebase --skip-emptied";
+                s = "status";
+                sq = "squash";
+                u = "undo";
+                # keep-sorted end
+              };
       };
     };
 }
