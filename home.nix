@@ -781,6 +781,7 @@ in
                 rb = "rebase --skip-emptied";
                 s = "status";
                 sq = "squash";
+                swap = "rebase --revisions @ --before @-";
                 u = "undo";
                 # keep-sorted end
               };
