@@ -60,7 +60,7 @@
     casks = [
       "calibre"
       "discord"
-      "docker"
+      "docker-desktop"
       "firefox"
       "google-chrome"
       "joplin"
