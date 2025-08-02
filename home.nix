@@ -739,52 +739,51 @@ in
           rr = "git rev-parse --show-toplevel 2>/dev/null || pwd"; # Get current git repo's root, if possible; can be used as `cd $(rr)`, `z `rr`` etc.
         };
 
-        shellAbbrs =
-          {
-            c = "cargo";
-            d = "docker";
-            g = "git";
-            k = {
-              # Expand this fully, for example to `kubectl --context=foo --namespace=bar`,
-              # for easy copy-pasting around and meaningful shell history.
-              function = "kubectl_expand";
-            };
-            j = "jj";
-            m = "make";
-            pi = "ipython";
-            tf = "terraform";
-          }
-          # Enable some jj-specific abbrs, which only trigger while within the `jj`
-          # command and not in others (NB: they trigger *anywhere* within the command,
-          # not just in the position they're legal in). Note each abbr still needs a
-          # globally unique name, hence the prefixes.
-          //
-            pkgs.lib.mapAttrs'
-              (regex: expansion: {
-                name = "jj_${builtins.replaceStrings [ " " "-" ] [ "_" "_" ] expansion}";
-                value = {
-                  command = "jj";
-                  inherit regex expansion;
-                };
-              })
-              {
-                # keep-sorted start
-                a = "abandon";
-                b = "bookmark";
-                d = "diff";
-                e = "edit";
-                f = "git fetch";
-                g = "git";
-                n = "new";
-                o = "operation";
-                p = "git push";
-                rb = "rebase --skip-emptied";
-                s = "status";
-                sq = "squash";
-                swap = "rebase --revisions @ --before @-";
-                u = "undo";
-                # keep-sorted end
+        shellAbbrs = {
+          c = "cargo";
+          d = "docker";
+          g = "git";
+          k = {
+            # Expand this fully, for example to `kubectl --context=foo --namespace=bar`,
+            # for easy copy-pasting around and meaningful shell history.
+            function = "kubectl_expand";
+          };
+          j = "jj";
+          m = "make";
+          pi = "ipython";
+          tf = "terraform";
+        }
+        # Enable some jj-specific abbrs, which only trigger while within the `jj`
+        # command and not in others (NB: they trigger *anywhere* within the command,
+        # not just in the position they're legal in). Note each abbr still needs a
+        # globally unique name, hence the prefixes.
+        //
+          pkgs.lib.mapAttrs'
+            (regex: expansion: {
+              name = "jj_${builtins.replaceStrings [ " " "-" ] [ "_" "_" ] expansion}";
+              value = {
+                command = "jj";
+                inherit regex expansion;
               };
+            })
+            {
+              # keep-sorted start
+              a = "abandon";
+              b = "bookmark";
+              d = "diff";
+              e = "edit";
+              f = "git fetch";
+              g = "git";
+              n = "new";
+              o = "operation";
+              p = "git push";
+              rb = "rebase --skip-emptied";
+              s = "status";
+              sq = "squash";
+              swap = "rebase --revisions @ --before @-";
+              u = "undo";
+              # keep-sorted end
+            };
       };
     };
 }
