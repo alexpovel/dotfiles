@@ -721,7 +721,7 @@ in
             set --local cmd (string trim -- $argv)
 
             # Only fire on commands requiring ssh keys
-            if not string match --quiet --regex '^(git|ssh) ' -- $cmd
+            if not string match --quiet --regex '^(git|ssh|jj) ' -- $cmd
               return
             end
 
