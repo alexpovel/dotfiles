@@ -93,6 +93,11 @@ in
         name = "Alex Povel";
         email = "git@alexpovel.de";
       };
+      backup = {
+        shell_history = {
+          destination = "$HOME/Nextcloud/.backup/fish_history/$(hostname)/.fish_history";
+        };
+      };
     in
     {
       direnv = {
@@ -580,7 +585,7 @@ in
               echo "Running history backup"
 
               set --local BACKUP_SRC "$HOME/.local/share/fish/fish_history"
-              set --local BACKUP_DST "$HOME/Nextcloud/.backup/fish_history/$(hostname)/.fish_history"
+              set --local BACKUP_DST "${backup.shell_history.destination}"
 
               if test -e "$BACKUP_SRC"
                   mkdir -p "$(dirname $BACKUP_DST)"
