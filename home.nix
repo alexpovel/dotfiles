@@ -374,6 +374,14 @@ in
               "--to"
               "@-"
             ];
+            swap = [
+              # Swap the current work revision with the previous one.
+              "rebase"
+              "--revisions"
+              "@"
+              "--before"
+              "@-"
+            ];
           };
 
           revset-aliases = {
@@ -762,7 +770,6 @@ in
           jrb = "jj rebase --skip-emptied";
           js = "jj status";
           jsq = "jj squash";
-          jswap = "jj rebase --revisions @ --before @-";
           ju = "jj undo";
           k = {
             # Expand this fully, for example to `kubectl --context=foo --namespace=bar`,
