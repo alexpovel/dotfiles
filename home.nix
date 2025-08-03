@@ -95,7 +95,7 @@ in
       };
       backup = {
         shell_history = {
-          destination = "$HOME/Nextcloud/.backup/fish_history/$(hostname)/.fish_history";
+          destination = "$HOME/Nextcloud/.backup/fish_history/$(system_profiler SPHardwareDataType | awk '/Hardware UUID/ {print $3}')/.fish_history";
         };
       };
     in
