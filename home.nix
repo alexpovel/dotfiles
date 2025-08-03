@@ -587,6 +587,14 @@ in
           }
         ];
 
+        # Use this over shell init once available, cf.
+        # https://github.com/nix-community/home-manager/commit/85a27991d5d9c980e33179b2fc7f0eb4f7262db0
+        # binds = {
+        #   "ctrl-j" = {
+        #     command = "jj_log_picker";
+        #   };
+        # };
+
         functions = {
           backup_history = {
             body = ''
@@ -601,6 +609,46 @@ in
               end
             '';
             description = "Backup fish history";
+          };
+
+          jj_log_picker = {
+            description = "Launches jj into fzf to pick a change ID from the jj log, if possible.";
+            body = ''
+              if not jj --ignore-working-copy root >/dev/null 2>&1
+                  echo "Not in a jujutsu repository"
+                  commandline --function repaint
+                  return 1
+              end
+
+              set -l selection (
+                  jj \
+                      --color=always \
+                      --limit 100 \
+                      # Prefixing by underscore happens to prefix the change ID, which allows
+                      # picking it out via regex later on.
+                      --template '"_" ++ builtin_log_compact' \
+                      # Do not are about timestamps for picking.
+                      --config "template-aliases.'format_timestamp(timestamp)'"="" |
+                  fzf \
+                      --ansi \
+                      --height=50% \
+                      # Reverse to display in usual order.
+                      --reverse \
+                      # Grab first hex-looking string with underscore prefix. We can have multiple
+                      # per line as e.g. `git_head()` might be a bookmark.
+                      --preview 'change_id=$(echo {} | grep --only-matching "_[a-z0-9]\+" | head -1 | sed "s/^_//"); [ -n "$change_id" ] && jj show --color=always "$change_id" || echo "No change ID on this line"' \
+                      --preview-window=right:60%
+              )
+
+              if test -n "$selection"
+                  # Important: use the same extraction method as the preview
+                  set -l change_id (echo $selection | grep --only-matching "_[a-z0-9]\+" | head -1 | sed "s/^_//")
+                  if test -n "$change_id"
+                      commandline --insert $change_id
+                  end
+              end
+              commandline --function repaint
+            '';
           };
 
           init_ssh = {
@@ -723,6 +771,10 @@ in
           if not test -f $completions_dir/rustup.fish
             rustup completions fish > $completions_dir/rustup.fish
           end
+
+          # Control + J becomes the jj log picker.
+          # NB: switch to name option at https://github.com/nix-community/home-manager/commit/85a27991d5d9c980e33179b2fc7f0eb4f7262db0 once available.
+          bind \cj jj_log_picker
 
           # Custom functions. Note that event handlers cannot live in the functions/
           # directory, as auto-sourcing does not work for them
