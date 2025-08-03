@@ -745,50 +745,35 @@ in
         };
 
         shellAbbrs = {
+          # keep-sorted start block=yes
           c = "cargo";
           d = "docker";
           g = "git";
+          j = "jj";
+          ja = "jj abandon";
+          jb = "jj bookmark";
+          jd = "jj diff";
+          je = "jj edit";
+          jf = "jj git fetch";
+          jg = "jj git";
+          jn = "jj new";
+          jo = "jj operation";
+          jp = "jj git push";
+          jrb = "jj rebase --skip-emptied";
+          js = "jj status";
+          jsq = "jj squash";
+          jswap = "jj rebase --revisions @ --before @-";
+          ju = "jj undo";
           k = {
             # Expand this fully, for example to `kubectl --context=foo --namespace=bar`,
             # for easy copy-pasting around and meaningful shell history.
             function = "kubectl_expand";
           };
-          j = "jj";
           m = "make";
           pi = "ipython";
           tf = "terraform";
-        }
-        # Enable some jj-specific abbrs, which only trigger while within the `jj`
-        # command and not in others (NB: they trigger *anywhere* within the command,
-        # not just in the position they're legal in). Note each abbr still needs a
-        # globally unique name, hence the prefixes.
-        //
-          pkgs.lib.mapAttrs'
-            (regex: expansion: {
-              name = "jj_${builtins.replaceStrings [ " " "-" ] [ "_" "_" ] expansion}";
-              value = {
-                command = "jj";
-                inherit regex expansion;
-              };
-            })
-            {
-              # keep-sorted start
-              a = "abandon";
-              b = "bookmark";
-              d = "diff";
-              e = "edit";
-              f = "git fetch";
-              g = "git";
-              n = "new";
-              o = "operation";
-              p = "git push";
-              rb = "rebase --skip-emptied";
-              s = "status";
-              sq = "squash";
-              swap = "rebase --revisions @ --before @-";
-              u = "undo";
-              # keep-sorted end
-            };
+          # keep-sorted end
+        };
       };
     };
 }
