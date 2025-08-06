@@ -70,14 +70,6 @@
       "signal"
       "zotero"
     ];
-
-    masApps = {
-      # These are all special snowflakes, and installation might fail here for various
-      # reasons which can only be resolved in the App Store GUI. It's still convenient
-      # to have them listed here for reference, and guaranteeing their installation.
-      "Wireguard" = 1451685025;
-      "Telegram" = 747648890;
-    };
   };
 
   system = {
