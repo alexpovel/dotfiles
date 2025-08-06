@@ -95,7 +95,11 @@ in
       };
       backup = {
         shell_history = {
-          destination = "$HOME/Nextcloud/.backup/fish_history/$(system_profiler SPHardwareDataType | awk '/Hardware UUID/ {print $3}')/.fish_history";
+          # `ln -s ~/actual/path ~/.shell_history_backup` to control where this actually
+          # points, if desired (e.g., cloud storage). On macOS, use `system_profiler
+          # SPHardwareDataType | awk '/Hardware UUID/ {print $3}'` for a stable machine
+          # identifier.
+          destination = "${home}/.shell_history_backup/.fish_history";
         };
       };
     in
