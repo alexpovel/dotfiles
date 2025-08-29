@@ -26,6 +26,7 @@ let
 in
 [
   # keep-sorted start
+  age
   ansible
   ansible-lint
   bat
@@ -77,6 +78,7 @@ in
   rsync
   shellcheck
   shfmt
+  sops
   sqlite
   srgn
   starship-jj
