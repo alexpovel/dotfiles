@@ -1,12 +1,33 @@
 { pkgs, ... }:
 
+let
+  user = "alex";
+in
 {
   nix = {
     package = pkgs.nix;
+    "linux-builder" = {
+      enable = true;
+      ephemeral = true;
+      maxJobs = 4;
+      config = {
+        virtualisation = {
+          darwin-builder = {
+            diskSize = 40 * 1024;
+            memorySize = 8 * 1024;
+          };
+          cores = 6;
+        };
+      };
+    };
+
     settings = {
       "extra-experimental-features" = [
         "nix-command"
         "flakes"
+      ];
+      "extra-trusted-users" = [
+        "@admin"
       ];
     };
   };
@@ -77,7 +98,7 @@
     # $ darwin-rebuild changelog
     stateVersion = 4;
 
-    primaryUser = "alex"; # FIXME: Inject this
+    primaryUser = user;
 
     activationScripts = {
       activateSettings = {
