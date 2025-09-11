@@ -85,6 +85,10 @@ in
       "EDITOR" = "zed --wait";
       "PIP_DISABLE_PIP_VERSION_CHECK" = "1";
     };
+
+    shell = {
+      enableFishIntegration = true;
+    };
   };
 
   programs =
@@ -425,7 +429,6 @@ in
 
       starship = {
         enable = true;
-        enableFishIntegration = true;
 
         settings = {
           format = builtins.concatStringsSep "" (
