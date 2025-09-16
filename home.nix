@@ -271,8 +271,8 @@ in
             email = vcs.email;
           };
 
-          core = {
-            fsmonitor = "watchman";
+          fsmonitor = {
+            backend = "watchman";
             watchman = {
               register-snapshot-trigger = true; # cf. `jj debug watchman status`
             };
@@ -281,8 +281,6 @@ in
           git = {
             push-new-bookmarks = true; # Just allow this by default
             private-commits = "private()"; # enable pattern of https://jj-vcs.github.io/jj/v0.29.0/FAQ/#how-can-i-avoid-committing-my-local-only-changes-to-tracked-files
-
-            push-bookmark-prefix = "${user}/"; # NB: this becomes `templates.git_push_bookmark` in 0.31.0, https://github.com/jj-vcs/jj/releases/tag/v0.31.0
           };
 
           template-aliases = {
@@ -310,6 +308,8 @@ in
                 diff.git(),
               )
             '';
+
+            git_push_bookmark = "'${user}/' ++ change_id.short()";
           };
 
           fix = {
@@ -352,16 +352,12 @@ in
 
           ui = {
             default-command = "log-recent";
-            diff = {
-              # NB: This config key becomes `diff-formatter` in 0.30.0, cf.
-              # https://github.com/jj-vcs/jj/releases/tag/v0.30.0.
-              tool = [
-                "difft"
-                "--color=always"
-                "$left"
-                "$right"
-              ];
-            };
+            diff-formatter = [
+              "${pkgs.lib.getExe pkgs.difftastic}"
+              "--color=always"
+              "$left"
+              "$right"
+            ];
             conflict-marker-style = "snapshot"; # I find this easier to read, default one is a diff-based one
             pager = "less --quit-if-one-screen --raw-control-chars --no-init";
           };
@@ -420,8 +416,15 @@ in
       ssh = {
         enable = true;
 
-        addKeysToAgent = ssh.agentDuration;
-        compression = true;
+        enableDefaultConfig = false;
+        matchBlocks = {
+          # All hosts
+          "*" = {
+            addKeysToAgent = ssh.agentDuration;
+            compression = true;
+          };
+        };
+
         includes = [
           # Place add. config files here. Allows for non-Nix managed, throw-away configs.
           "dynamic.d/*"
