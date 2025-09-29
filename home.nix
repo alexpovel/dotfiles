@@ -359,7 +359,7 @@ in
               "$left"
               "$right"
             ];
-            conflict-marker-style = "snapshot"; # I find this easier to read, default one is a diff-based one
+            conflict-marker-style = "git"; # aka diff3 style
             pager = "less --quit-if-one-screen --raw-control-chars --no-init";
           };
 
