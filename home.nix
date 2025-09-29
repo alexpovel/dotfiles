@@ -285,6 +285,7 @@ in
 
           template-aliases = {
             "format_short_change_id(id)" = "id.shortest()"; # Only display the shortest possible ID
+            "format_timestamp(timestamp)" = "timestamp.ago()"; # Human-readable relative timestamps, "3 days ago"
           };
 
           signing = {
