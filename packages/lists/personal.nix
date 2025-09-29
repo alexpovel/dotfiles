@@ -62,6 +62,7 @@ in
   kubectl
   kubernetes-helm
   lua
+  mergiraf
   ncdu
   nil
   nix-direnv
