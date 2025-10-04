@@ -141,11 +141,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759568354,
-        "narHash": "sha256-fCLrHNM/ThWsz4O6DD5LIRHypBc0FO47nese/w0mUHs=",
+        "lastModified": 1759569335,
+        "narHash": "sha256-jQHhWTpu8ZJnMQsYYQ/RxqmrjcA1RMgBMB5rWc2vbnc=",
         "owner": "alexpovel",
         "repo": "srgn",
-        "rev": "459cdb668aecf2b9e4c2f146e613bc0931cddd49",
+        "rev": "3f31555433802e0156ed1350f0b5e9a0b7bb58f3",
         "type": "github"
       },
       "original": {
