@@ -6,6 +6,9 @@
     # (https://github.com/NixOS/nix/issues/4945) (wtf?)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    srgn.url = "github:alexpovel/srgn";
+    srgn.inputs.nixpkgs.follows = "nixpkgs";
+
     darwin.url = "github:nix-darwin/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -31,6 +34,7 @@
       nix-homebrew,
       homebrew-core,
       homebrew-cask,
+      srgn,
       ...
     }:
     {
@@ -39,6 +43,9 @@
           system = "aarch64-darwin";
           modules = [
             ./darwin-configuration.nix
+
+            { nixpkgs.overlays = [ srgn.overlays.default ]; }
+
             home-manager.darwinModules.home-manager
             {
               home-manager.backupFileExtension = "home-manager-backup";

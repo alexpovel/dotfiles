@@ -130,7 +130,28 @@
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "nix-homebrew": "nix-homebrew",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "srgn": "srgn"
+      }
+    },
+    "srgn": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759568354,
+        "narHash": "sha256-fCLrHNM/ThWsz4O6DD5LIRHypBc0FO47nese/w0mUHs=",
+        "owner": "alexpovel",
+        "repo": "srgn",
+        "rev": "459cdb668aecf2b9e4c2f146e613bc0931cddd49",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alexpovel",
+        "repo": "srgn",
+        "type": "github"
       }
     }
   },

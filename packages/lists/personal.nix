@@ -20,9 +20,6 @@ let
   starship-jj = import ./../build/starship-jj.nix {
     inherit pkgs;
   };
-  srgn = import ./../build/srgn.nix {
-    inherit pkgs;
-  };
 in
 [
   # keep-sorted start
