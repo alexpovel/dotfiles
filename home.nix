@@ -814,6 +814,8 @@ in
           cat = "bat";
           l = "eza --long --header --all --all"; # `all` twice gives `.` and `..`
           rr = "git rev-parse --show-toplevel 2>/dev/null || pwd"; # Get current git repo's root, if possible; can be used as `cd $(rr)`, `z `rr`` etc.
+          urlencode = "${pkgs.lib.getExe pkgs.python3} -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
+          urldecode = "${pkgs.lib.getExe pkgs.python3} -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
         };
 
         shellAbbrs = {
