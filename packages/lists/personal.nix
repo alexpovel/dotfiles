@@ -32,6 +32,7 @@ in
   cargo-msrv
   cargo-tarpaulin
   cargo-udeps
+  cargo-watch
   cue
   curl
   difftastic
