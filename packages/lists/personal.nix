@@ -68,6 +68,7 @@ in
   nixfmt-rfc-style
   nmap
   nodejs
+  numbat
   pandoc
   panicparse
   postgresql
