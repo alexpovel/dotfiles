@@ -46,6 +46,13 @@ in
           theme = dark:Monokai Pro Machine,light:Monokai Pro Light
         '';
       };
+      "Library/Application Support/numbat/init.nbt" = {
+        # https://numbat.dev/doc/cli-customization.html#config-path
+        text = ''
+          @aliases(events)
+          unit event
+        '';
+      };
       ".ignore" = {
         # General-purpose ignore file. For example, this can be picked up by `rg`:
         # https://github.com/BurntSushi/ripgrep/blob/f1d23c06e30606b2428a4e32da8f0b5069e81280/GUIDE.md#L184
@@ -843,6 +850,11 @@ in
             function = "kubectl_expand";
           };
           m = "make";
+          n = "numbat";
+          ne = {
+            setCursor = true;
+            expansion = "numbat --expression '%'";
+          };
           pi = "ipython";
           tf = "terraform";
           # keep-sorted end
