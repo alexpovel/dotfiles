@@ -838,6 +838,7 @@ in
           jf = "jj git fetch";
           jg = "jj git";
           jn = "jj new";
+          jnt = "jj new 'trunk()'";
           jo = "jj operation";
           jp = "jj git push";
           jrb = "jj rebase --skip-emptied";
