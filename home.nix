@@ -115,6 +115,16 @@ in
       };
     in
     {
+      delta = {
+        enable = true;
+        enableGitIntegration = true;
+
+        options = {
+          hyperlinks = true;
+          navigate = true; # use n and N to move between diff sections
+        };
+      };
+
       direnv = {
         enable = true;
         nix-direnv.enable = true;
@@ -144,59 +154,41 @@ in
 
       git = {
         enable = true;
-        userName = vcs.name;
-        userEmail = vcs.email;
 
-        aliases = {
-          a = "add";
-          ap = "add --patch";
-          c = "commit";
-          ca = "commit --all";
-          cano = "commit --amend --no-edit";
-          cl = "!f() { git clone \"$1\" $(git-url-extract-path \"$1\"); }; f"; # Sort into owner/repo format
-          cli = "clean --interactive";
-          d = "diff";
-          dog = "log --decorate --oneline --graph --pretty=format:'%C(auto)%h%d %s %C(240)- %cr %C(240)- %an'";
-          doga = "dog --all";
-          dogaf = "doga --first-parent";
-          dogf = "dog --first-parent";
-          ds = "diff --staged";
-          p = "push";
-          pl = "pull --prune";
-          pla = "pull --all --prune";
-          rb = "rebase";
-          rbi = "rebase --interactive";
-          s = "status --short --branch";
-          subfull = "submodule update --init --recursive";
-          sw = "switch";
-          swd = "sw --detach";
+        settings = {
+          aliases = {
+            a = "add";
+            ap = "add --patch";
+            c = "commit";
+            ca = "commit --all";
+            cano = "commit --amend --no-edit";
+            cl = "!f() { git clone \"$1\" $(git-url-extract-path \"$1\"); }; f"; # Sort into owner/repo format
+            cli = "clean --interactive";
+            d = "diff";
+            dog = "log --decorate --oneline --graph --pretty=format:'%C(auto)%h%d %s %C(240)- %cr %C(240)- %an'";
+            doga = "dog --all";
+            dogaf = "doga --first-parent";
+            dogf = "dog --first-parent";
+            ds = "diff --staged";
+            p = "push";
+            pl = "pull --prune";
+            pla = "pull --all --prune";
+            rb = "rebase";
+            rbi = "rebase --interactive";
+            s = "status --short --branch";
+            subfull = "submodule update --init --recursive";
+            sw = "switch";
+            swd = "sw --detach";
 
-          # 'What does force-pushing the current branch to its upstream (overwriting it)
-          # change to the PR of that upstream against main?'; similar to
-          # https://stackoverflow.com/a/52512813/11477374 . `@{u}`: upstream branch. This
-          # prints output similar to what services like GitHub or GitHub show as "changes
-          # from last version" on a PR, i.e. it respects different branch states w.r.t.
-          # trunk etc.
-          check-if-force-pushing-ruins-my-life = "!f() { git range-diff main $(git rev-parse @{u}) HEAD; }; f";
-        };
-
-        delta = {
-          enable = true;
-
-          options = {
-            hyperlinks = true;
-            navigate = true; # use n and N to move between diff sections
+            # 'What does force-pushing the current branch to its upstream (overwriting it)
+            # change to the PR of that upstream against main?'; similar to
+            # https://stackoverflow.com/a/52512813/11477374 . `@{u}`: upstream branch. This
+            # prints output similar to what services like GitHub or GitHub show as "changes
+            # from last version" on a PR, i.e. it respects different branch states w.r.t.
+            # trunk etc.
+            check-if-force-pushing-ruins-my-life = "!f() { git range-diff main $(git rev-parse @{u}) HEAD; }; f";
           };
-        };
 
-        ignores = [
-          # General-purpose, low-false positive items.
-          # https://git-scm.com/docs/gitignore#_pattern_format
-          ".DS_Store"
-          ".dev/" # In-repo temporary experiments
-        ];
-
-        extraConfig = {
           branch = {
             sort = "-committerdate";
           };
@@ -255,9 +247,18 @@ in
             autoUpdate = true;
           };
           user = {
+            email = vcs.email;
+            name = vcs.name;
             signingKey = ssh.key.pub;
           };
         };
+
+        ignores = [
+          # General-purpose, low-false positive items.
+          # https://git-scm.com/docs/gitignore#_pattern_format
+          ".DS_Store"
+          ".dev/" # In-repo temporary experiments
+        ];
       };
 
       go = {
