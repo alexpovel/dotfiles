@@ -457,11 +457,6 @@ in
               "fossil_branch"
               "fossil_metrics"
               "{custom.jj}" # Has dot, so need braces syntax
-              "git_branch"
-              "git_commit"
-              "git_state"
-              "git_metrics"
-              "git_status"
               "hg_branch"
               "pijul_channel"
               "docker_context"
