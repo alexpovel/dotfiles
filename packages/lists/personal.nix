@@ -82,6 +82,7 @@ in
   sqlite
   srgn
   starship-jj
+  tldr
   tokei
   typescript
   typst
