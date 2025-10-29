@@ -156,7 +156,7 @@ in
         enable = true;
 
         settings = {
-          aliases = {
+          alias = {
             a = "add";
             ap = "add --patch";
             c = "commit";
