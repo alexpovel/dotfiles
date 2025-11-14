@@ -73,7 +73,6 @@
       "joplin"
       "linearmouse"
       "nextcloud"
-      "raycast"
       "signal"
       "zotero"
     ];
