@@ -24,8 +24,6 @@ in
 [
   # keep-sorted start
   age
-  ansible
-  ansible-lint
   bat
   cargo-flamegraph
   cargo-insta
@@ -37,29 +35,21 @@ in
   curl
   difftastic
   dig
-  duckdb
   erdtree
   eza
-  fastgron
   ffmpeg
-  gh
   git-url-extract-path
   gnumake
-  gnuplot
   golangci-lint
   gotools
   graphviz
   hexyl
-  hyperfine
   imagemagick
   inetutils # telnet, ping, traceroute, whois
   inkscape
-  jd-diff-patch
   jq
   keep-sorted
   kubectl
-  kubernetes-helm
-  lua
   mergiraf
   ncdu
   nil
@@ -69,10 +59,6 @@ in
   nmap
   nodejs
   numbat
-  pandoc
-  panicparse
-  postgresql
-  pre-commit
   python
   rclone
   rsync
@@ -85,10 +71,8 @@ in
   tldr
   tokei
   typescript
-  typst
   uv
   watchman
-  wget
   whois
   # keep-sorted end
 ]
