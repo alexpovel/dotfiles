@@ -68,6 +68,7 @@ in
   sqlite
   srgn
   starship-jj
+  testssl
   tldr
   tokei
   typescript
