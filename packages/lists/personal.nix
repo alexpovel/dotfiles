@@ -61,6 +61,7 @@ in
   numbat
   python
   rclone
+  restic
   rsync
   shellcheck
   shfmt
