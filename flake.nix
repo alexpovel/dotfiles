@@ -2,9 +2,8 @@
   description = "Darwin configuration";
 
   inputs = {
-    # Cannot factor out the version number, so hard-code it
-    # (https://github.com/NixOS/nix/issues/4945) (wtf?)
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Stable, base system.
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # Unstable packages (for specific tools). Cf.
     # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/downgrade-or-upgrade-packages
@@ -13,10 +12,12 @@
     srgn.url = "github:alexpovel/srgn";
     srgn.inputs.nixpkgs.follows = "nixpkgs";
 
+    # TODO: use once this branch is available.
+    # darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     darwin.url = "github:nix-darwin/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
