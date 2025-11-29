@@ -1,4 +1,10 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  # Nix will search for and inject this parameter from `specialArgs` in `flake.nix`
+  pkgs-unstable,
+  ...
+}:
 
 let
   # Found this out debugging and digging with `builtins.trace (pkgs.lib.attrNames config)`. No idea where `config.home` comes from.
@@ -76,7 +82,7 @@ in
       };
     };
 
-    packages = import ./packages/lists/personal.nix { inherit pkgs; };
+    packages = import ./packages/lists/personal.nix { inherit pkgs pkgs-unstable; };
 
     sessionPath = [
       # We install rustup manually, outside Nix - macOS + Rust via Nix is a nightmare.

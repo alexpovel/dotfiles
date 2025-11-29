@@ -6,6 +6,9 @@
     # (https://github.com/NixOS/nix/issues/4945) (wtf?)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/downgrade-or-upgrade-packages
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     srgn.url = "github:alexpovel/srgn";
     srgn.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -29,18 +32,27 @@
 
   outputs =
     {
-      home-manager,
+      nixpkgs-unstable,
+
+      srgn,
       darwin,
+      home-manager,
+
       nix-homebrew,
       homebrew-core,
       homebrew-cask,
-      srgn,
       ...
     }:
     {
       darwinConfigurations = {
         hostname = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
+          specialArgs = {
+            pkgs-unstable = import nixpkgs-unstable {
+              system = "aarch64-darwin";
+            };
+          };
+
           modules = [
             ./darwin-configuration.nix
 
@@ -50,6 +62,11 @@
             {
               home-manager.backupFileExtension = "home-manager-backup";
               home-manager.useGlobalPkgs = true;
+              home-manager.extraSpecialArgs = {
+                pkgs-unstable = import nixpkgs-unstable {
+                  system = "aarch64-darwin";
+                };
+              };
 
               # https://discourse.nixos.org/t/how-to-explicity-pass-arguments-config-and-pkgs-to-home-managers-nixos-module/16607/2
               home-manager.users.alex.imports = [ ./home.nix ];

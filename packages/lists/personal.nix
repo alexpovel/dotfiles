@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, pkgs-unstable }:
 
 with pkgs;
 let
@@ -31,7 +31,7 @@ in
   cargo-tarpaulin
   cargo-udeps
   cargo-watch
-  cue
+  pkgs-unstable.cue
   curl
   difftastic
   dig
