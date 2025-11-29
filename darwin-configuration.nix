@@ -1,6 +1,19 @@
-{ pkgs, ... }:
-
 {
+  inputs,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
+let
+  user = "alex";
+in
+{
+  users.users = {
+    "${user}" = {
+      home = "/Users/${user}";
+    };
+  };
+
   nix = {
     package = pkgs.nix;
     settings = {
@@ -19,8 +32,35 @@
   };
 
   nixpkgs = {
+    overlays = [
+      inputs.srgn.overlays.default
+    ];
     config = {
       allowUnfree = true; # VSCode, ...
+    };
+  };
+
+  nix-homebrew = {
+    enable = true;
+
+    inherit user;
+
+    taps = {
+      "homebrew/homebrew-core" = inputs.homebrew-core;
+      "homebrew/homebrew-cask" = inputs.homebrew-cask;
+    };
+  };
+
+  home-manager = {
+    backupFileExtension = "home-manager-backup";
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    extraSpecialArgs = {
+      # https://discourse.nixos.org/t/pass-specialargs-to-the-home-manager-module/33068
+      inherit inputs pkgs-unstable;
+    };
+    users = {
+      "${user}" = import ./home.nix;
     };
   };
 
@@ -83,7 +123,7 @@
     # $ darwin-rebuild changelog
     stateVersion = 4;
 
-    primaryUser = "alex"; # FIXME: Inject this
+    primaryUser = user;
 
     activationScripts = {
       activateSettings = {

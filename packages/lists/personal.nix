@@ -31,7 +31,6 @@ in
   cargo-tarpaulin
   cargo-udeps
   cargo-watch
-  pkgs-unstable.cue
   curl
   difftastic
   dig
@@ -59,6 +58,7 @@ in
   nmap
   nodejs
   numbat
+  pkgs-unstable.cue
   python
   rclone
   restic
