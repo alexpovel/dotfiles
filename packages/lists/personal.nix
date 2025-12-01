@@ -54,7 +54,7 @@ in
   nil
   nix-direnv
   nixd
-  nixfmt-rfc-style
+  nixfmt
   nmap
   nodejs
   numbat
