@@ -12,9 +12,7 @@
     srgn.url = "github:alexpovel/srgn";
     srgn.inputs.nixpkgs.follows = "nixpkgs";
 
-    # TODO: use once this branch is available.
-    # darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
-    darwin.url = "github:nix-darwin/nix-darwin";
+    darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager/release-25.11";
