@@ -34,6 +34,7 @@ in
   curl
   difftastic
   dig
+  duckdb
   erdtree
   eza
   ffmpeg
