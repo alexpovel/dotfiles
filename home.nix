@@ -374,7 +374,7 @@ in
               "$right"
             ];
             conflict-marker-style = "git"; # aka diff3 style
-            pager = "less --quit-if-one-screen --raw-control-chars --no-init";
+            pager = "less --quit-if-one-screen --RAW-CONTROL-CHARS --no-init";
           };
 
           aliases = {
