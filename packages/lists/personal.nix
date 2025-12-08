@@ -20,6 +20,7 @@ let
   starship-jj = import ./../build/starship-jj.nix {
     inherit pkgs;
   };
+  u = pkgs-unstable;
 in
 [
   # keep-sorted start
@@ -59,7 +60,6 @@ in
   nmap
   nodejs
   numbat
-  pkgs-unstable.cue
   python
   rclone
   restic
@@ -77,5 +77,10 @@ in
   uv
   watchman
   whois
+  # keep-sorted end
+]
+++ [
+  # keep-sorted start
+  u.cue
   # keep-sorted end
 ]
