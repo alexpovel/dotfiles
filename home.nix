@@ -278,6 +278,7 @@ in
 
       jujutsu = {
         enable = true;
+        package = pkgs-unstable.jujutsu;
 
         settings = {
           user = {
@@ -293,7 +294,6 @@ in
           };
 
           git = {
-            push-new-bookmarks = true; # Just allow this by default
             private-commits = "private()"; # enable pattern of https://jj-vcs.github.io/jj/v0.29.0/FAQ/#how-can-i-avoid-committing-my-local-only-changes-to-tracked-files
           };
 
@@ -402,6 +402,15 @@ in
               "--before"
               "@-"
             ];
+          };
+
+          remotes = {
+            origin = {
+              auto-track-bookmarks = "regex:(main|master)";
+            };
+            upstream = {
+              auto-track-bookmarks = "regex:(main|master)";
+            };
           };
 
           revset-aliases = {
