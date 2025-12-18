@@ -208,7 +208,6 @@ in
           core = {
             autocrlf = false;
             eol = "lf";
-            fsmonitor = true;
           };
           diff = {
             algorithm = "histogram";
