@@ -17,6 +17,9 @@ let
       ]
     )
   );
+  headson = import ./../build/headson.nix {
+    inherit pkgs;
+  };
   starship-jj = import ./../build/starship-jj.nix {
     inherit pkgs;
   };
@@ -44,6 +47,7 @@ in
   golangci-lint
   gotools
   graphviz
+  headson
   hexyl
   imagemagick
   inetutils # telnet, ping, traceroute, whois
