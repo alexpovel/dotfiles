@@ -2,16 +2,16 @@
 
 (pkgs.rustPlatform.buildRustPackage rec {
   pname = "starship-jj";
-  version = "0.6.0";
+  version = "0.7.0";
 
   src = pkgs.fetchFromGitLab {
     owner = "lanastara_foss";
     repo = pname;
     rev = version;
-    hash = "sha256-HTkDZQJnlbv2LlBybpBTNh1Y3/M8RNeQuiked3JaLgI="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
+    hash = "sha256-EgOKjPJK6NdHghMclbn4daywJ8oODiXkS48Nrn5cRZo="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
   };
 
-  cargoHash = "sha256-E5z3AZhD3kiP6ojthcPne0f29SbY0eV4EYTFewA+jNc="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
+  cargoHash = "sha256-NNeovW27YSK/fO2DjAsJqBvebd43usCw7ni47cgTth8="; # On update: replace w/ `pkgs.lib.fakeHash`, run, let it fail and take hash from error message
 
   nativeBuildInputs = [ pkgs.installShellFiles ];
 
