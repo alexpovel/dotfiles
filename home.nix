@@ -299,6 +299,15 @@ in
           template-aliases = {
             "format_short_change_id(id)" = "id.shortest()"; # Only display the shortest possible ID
             "format_timestamp(timestamp)" = "timestamp.ago()"; # Human-readable relative timestamps, "3 days ago"
+            "log_compact_with_diff_summary" = ''
+              builtin_log_compact(self)
+              ++ label("diff_summary",
+                label("files", self.diff().files().len())
+                ++ " "
+                ++ label("added", "+" ++ self.diff().stat().total_added())
+                ++ label("removed", "-" ++ self.diff().stat().total_removed())
+              )
+            '';
           };
 
           signing = {
@@ -376,9 +385,21 @@ in
             pager = "less --quit-if-one-screen --RAW-CONTROL-CHARS --no-init";
           };
 
+          colors = {
+            # These colors work a bit like CSS; a key of `foo bar` is applied to content
+            # with `label("foo", ...)`, where `...` contains another nested
+            # `label("bar", ...)` somewhere. For color definitions, see
+            # https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit.
+            "diff_summary files" = "ansi-color-67"; # Faded cyan
+            "diff_summary added" = "ansi-color-65"; # Faded green
+            "diff_summary removed" = "ansi-color-174"; # Faded red
+          };
+
           aliases = {
             log-recent = [
               "log"
+              "--template"
+              "log_compact_with_diff_summary"
               "--revisions"
               "default() & recent()"
             ];
