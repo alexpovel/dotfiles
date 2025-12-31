@@ -72,7 +72,6 @@ in
   shfmt
   sops
   sqlite
-  srgn
   starship-jj
   testssl
   tldr
@@ -86,5 +85,6 @@ in
 ++ [
   # keep-sorted start
   u.cue
+  u.srgn
   # keep-sorted end
 ]

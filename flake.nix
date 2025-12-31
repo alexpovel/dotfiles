@@ -9,9 +9,6 @@
     # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/downgrade-or-upgrade-packages
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    srgn.url = "github:alexpovel/srgn";
-    srgn.inputs.nixpkgs.follows = "nixpkgs";
-
     darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 

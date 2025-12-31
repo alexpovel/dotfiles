@@ -32,9 +32,6 @@ in
   };
 
   nixpkgs = {
-    overlays = [
-      inputs.srgn.overlays.default
-    ];
     config = {
       allowUnfree = true; # VSCode, ...
     };
