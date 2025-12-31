@@ -550,16 +550,16 @@ in
 
           custom = {
             jj = {
-              # https://gitlab.com/lanastara_foss/starship-jj#usage
-              command = "prompt";
-              format = "$output";
+              # Module to show whether we're in a jj repo -- and nothing else.
+              description = "Current jj repo status";
+              when = "jj --ignore-working-copy root";
+              symbol = "🥋 ";
               shell = [
-                "starship-jj"
-                "--ignore-working-copy"
-                "starship"
+                # Using minimal shell cuts ~60ms off execution time.
+                "sh"
+                "--norc"
+                "--noprofile"
               ];
-              use_stdin = false;
-              when = true;
             };
           };
 

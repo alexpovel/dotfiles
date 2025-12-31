@@ -20,9 +20,6 @@ let
   headson = import ./../build/headson.nix {
     inherit pkgs;
   };
-  starship-jj = import ./../build/starship-jj.nix {
-    inherit pkgs;
-  };
   u = pkgs-unstable;
 in
 [
@@ -72,7 +69,6 @@ in
   shfmt
   sops
   sqlite
-  starship-jj
   testssl
   tldr
   tokei
