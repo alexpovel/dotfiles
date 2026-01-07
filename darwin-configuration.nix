@@ -6,6 +6,11 @@
 }:
 let
   user = "alex";
+  cleanupAt = {
+    Hour = 18;
+    Minute = 0;
+    Weekday = 7;
+  };
 in
 {
   users.users = {
@@ -24,9 +29,11 @@ in
     };
     optimise = {
       automatic = true;
+      interval = [ cleanupAt ];
     };
     gc = {
       automatic = true;
+      interval = [ cleanupAt ];
       options = "--delete-older-than 7d";
     };
   };
