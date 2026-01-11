@@ -734,6 +734,18 @@ in
             '';
           };
 
+          gimme = {
+            description = "Clone a git repo via jujutsu and jump to it";
+            body = ''
+              set --local repo $argv[1]
+              set --local dest "${shellStartupDir}/$(git-url-extract-path $repo)"
+
+              echo "Cloning $repo into $dest"
+              jj git clone --colocate "$repo" "$dest"
+              and cd "$dest"
+            '';
+          };
+
           jc = {
             # cf. https://news.ycombinator.com/item?id=44640823
             description = "Condense JSON by keeping only N elements of each array (default: 1)";
