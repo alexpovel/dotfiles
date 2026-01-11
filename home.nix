@@ -285,13 +285,6 @@ in
             email = vcs.email;
           };
 
-          fsmonitor = {
-            backend = "watchman";
-            watchman = {
-              register-snapshot-trigger = true; # cf. `jj debug watchman status`
-            };
-          };
-
           git = {
             private-commits = "private()"; # enable pattern of https://jj-vcs.github.io/jj/v0.29.0/FAQ/#how-can-i-avoid-committing-my-local-only-changes-to-tracked-files
           };
