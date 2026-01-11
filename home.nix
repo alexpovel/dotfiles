@@ -630,13 +630,11 @@ in
           }
         ];
 
-        # Use this over shell init once available, cf.
-        # https://github.com/nix-community/home-manager/commit/85a27991d5d9c980e33179b2fc7f0eb4f7262db0
-        # binds = {
-        #   "ctrl-j" = {
-        #     command = "jj_log_picker";
-        #   };
-        # };
+        binds = {
+          "ctrl-j" = {
+            command = "jj_log_picker";
+          };
+        };
 
         functions = {
           backup_history = {
@@ -826,10 +824,6 @@ in
           if not test -f $completions_dir/rustup.fish
             rustup completions fish > $completions_dir/rustup.fish
           end
-
-          # Control + J becomes the jj log picker.
-          # NB: switch to name option at https://github.com/nix-community/home-manager/commit/85a27991d5d9c980e33179b2fc7f0eb4f7262db0 once available.
-          bind \cj jj_log_picker
 
           # Custom functions. Note that event handlers cannot live in the functions/
           # directory, as auto-sourcing does not work for them
