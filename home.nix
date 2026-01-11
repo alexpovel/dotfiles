@@ -815,13 +815,14 @@ in
 
           # Completions
           set completions_dir ~/.config/fish/completions
+          set one_month_seconds 2592000
           mkdir -p $completions_dir
 
-          if not test -f $completions_dir/docker.fish
+          if not test -f $completions_dir/docker.fish; or test (path mtime --relative $completions_dir/docker.fish) -gt $one_month_seconds
             docker completion fish > $completions_dir/docker.fish
           end
 
-          if not test -f $completions_dir/rustup.fish
+          if not test -f $completions_dir/rustup.fish; or test (path mtime --relative $completions_dir/rustup.fish) -gt $one_month_seconds
             rustup completions fish > $completions_dir/rustup.fish
           end
 
