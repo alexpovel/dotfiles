@@ -419,10 +419,10 @@ in
 
           remotes = {
             origin = {
-              auto-track-bookmarks = "regex:(main|master)";
+              auto-track-bookmarks = "regex:\"(main|master)\"";
             };
             upstream = {
-              auto-track-bookmarks = "regex:(main|master)";
+              auto-track-bookmarks = "regex:\"(main|master)\"";
             };
           };
 

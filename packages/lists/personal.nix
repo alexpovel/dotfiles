@@ -12,8 +12,6 @@ let
         httpx-auth
         ipython
         matplotlib
-        pandas
-        pint
       ]
     )
   );
@@ -26,19 +24,11 @@ in
   # keep-sorted start
   age
   bat
-  cargo-flamegraph
-  cargo-insta
-  cargo-msrv
-  cargo-tarpaulin
-  cargo-udeps
-  cargo-watch
   curl
   difftastic
   dig
-  duckdb
   erdtree
   eza
-  ffmpeg
   git-url-extract-path
   gnumake
   golangci-lint
@@ -48,7 +38,6 @@ in
   hexyl
   imagemagick
   inetutils # telnet, ping, traceroute, whois
-  inkscape
   jq
   keep-sorted
   kubectl
@@ -70,7 +59,6 @@ in
   sops
   sqlite
   testssl
-  tldr
   tokei
   typescript
   uv
