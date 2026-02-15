@@ -15,9 +15,6 @@ let
       ]
     )
   );
-  headson = import ./../build/headson.nix {
-    inherit pkgs;
-  };
   u = pkgs-unstable;
 in
 [
@@ -31,38 +28,23 @@ in
   eza
   git-url-extract-path
   gnumake
-  golangci-lint
-  gotools
-  graphviz
-  headson
   hexyl
-  imagemagick
-  inetutils # telnet, ping, traceroute, whois
   jq
   keep-sorted
-  kubectl
   mergiraf
   ncdu
   nil
   nix-direnv
   nixd
   nixfmt
-  nmap
-  nodejs
   numbat
   python
-  rclone
   restic
-  rsync
   shellcheck
   shfmt
   sops
-  sqlite
-  testssl
   tokei
-  typescript
   uv
-  watchman
   whois
   # keep-sorted end
 ]
