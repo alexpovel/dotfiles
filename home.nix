@@ -396,14 +396,6 @@ in
               "--revisions"
               "default() & recent()"
             ];
-            swap = [
-              # Swap the current work revision with the previous one.
-              "rebase"
-              "--revisions"
-              "@"
-              "--before"
-              "@-"
-            ];
           };
 
           remotes = {
