@@ -361,6 +361,7 @@ in
               "$left"
               "$right"
             ];
+            diff-editor = ":builtin"; # silence warning by being explicit
             conflict-marker-style = "git"; # aka diff3 style
             pager = "less --quit-if-one-screen --RAW-CONTROL-CHARS --no-init";
           };
