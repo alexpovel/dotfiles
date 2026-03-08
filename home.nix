@@ -396,17 +396,6 @@ in
               "--revisions"
               "default() & recent()"
             ];
-            tug = [
-              # Pull the nearest bookmark to current worktree up. This helps when
-              # working on "branches" in the git sense, and adding new commits to their
-              # head.
-              "bookmark"
-              "move"
-              "--from"
-              "closest_bookmark(@-)"
-              "--to"
-              "@-"
-            ];
             swap = [
               # Swap the current work revision with the previous one.
               "rebase"
@@ -431,7 +420,6 @@ in
             "default()" = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())";
 
             "recent()" = "committer_date(after:'1 month ago')";
-            "closest_bookmark(to)" = "heads(::to & bookmarks())";
             "private()" = "description(glob:'private:*')";
           };
         };
