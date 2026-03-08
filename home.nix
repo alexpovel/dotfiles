@@ -831,6 +831,7 @@ in
           j = "jj";
           ja = "jj abandon";
           jb = "jj bookmark";
+          jba = "jj bookmark advance";
           jd = "jj diff";
           je = "jj edit";
           jf = "jj git fetch";
